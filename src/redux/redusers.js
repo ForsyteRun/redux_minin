@@ -1,5 +1,5 @@
-const increment = {type: 'INCREMENT'}
-const dicrement = {type: 'DICREMENT'}
+const increment = 'INCREMENT';
+const dicrement = 'DICREMENT';
 
 
 let rootReducer = (state, action) => {
@@ -14,5 +14,22 @@ let rootReducer = (state, action) => {
          return state;
    }
 }
+
+export let getInk = () => {
+   return {
+      type: 'INCREMENT'
+   }
+}
+
+export let getDic = () => {
+   return {
+      type: 'DICREMENT'
+   }
+}
+
+
+
+
+
 
 export default rootReducer;
