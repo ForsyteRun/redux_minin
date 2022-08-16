@@ -1,10 +1,10 @@
-import { legacy_createStore as createStore } from "redux";
-import rootReducer  from "./redusers";
+// import { legacy_createStore as createStore } from "redux";
+// import rootReducer  from "./redusers";
 
 
-let store = createStore(rootReducer, 0);
+// let store = createStore(rootReducer, 0);
 
-window.store = store;
+// window.store = store;
 
-export default store;
+// export default store;
 
