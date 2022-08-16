@@ -5,11 +5,9 @@ const dicrement = 'DICREMENT';
 let rootReducer = (state, action) => {
    switch (action.type) {
       case increment:
-         state = state +1;
-         return state;
+        return state = state +1;
       case dicrement:
-         state = state -1;
-         return state;
+        return state = state -1;
       default:
          return state;
    }

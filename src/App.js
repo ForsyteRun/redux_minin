@@ -14,7 +14,7 @@ let getMinus = () => {
 }
 
 function App(props) {
-
+debugger
   return (
     <div className="App">
       <button onClick={getPlus}>+</button>
