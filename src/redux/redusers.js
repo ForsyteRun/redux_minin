@@ -2,15 +2,19 @@ const increment = 'INCREMENT';
 const dicrement = 'DICREMENT';
 
 let InitialState = {
-   num: 0,
+   num: 5,
 }
 
 let rootReducer = (state = InitialState, action) => {
    switch (action.type) {
       case increment:
-        return state.num +1;
+         return {
+            num: state.num +1 
+         }
       case dicrement:
-        return state.num -1;
+         return {
+            num: state.num -1,
+         }
       default:
          return state;
    }

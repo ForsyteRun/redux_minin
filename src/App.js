@@ -7,14 +7,14 @@ function App(props) {
     <div className="App">
       <button onClick={props.getPlus}>+</button>
       <button onClick={props.getMinus}>-</button>
-      <div>Результат:{props.result.num}</div>
+      <div>Результат:{props.result}</div>
     </div>
   );
 }
 
 let mapStateToProps = (state) => {
   return {
-    result: state.rootReducer,
+    result: state.num,
   }
 };
 
