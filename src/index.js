@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import rootReducer from './redux/redusers';
-import { legacy_createStore as createStore} from 'redux';
+import { combineReducers, legacy_createStore as createStore} from 'redux';
 import { Provider } from 'react-redux';
 
-const store = createStore(rootReducer, 0);
+let redusers = combineReducers({
+  rootReducer,
+})
+
+let store = createStore(redusers);
 
 
     const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,5 +22,5 @@ const store = createStore(rootReducer, 0);
       </React.StrictMode>
     );
 
-
+window.store = store;
 

@@ -1,13 +1,16 @@
 const increment = 'INCREMENT';
 const dicrement = 'DICREMENT';
 
+let InitialState = {
+   num: 0,
+}
 
-let rootReducer = (state, action) => {
+let rootReducer = (state = InitialState, action) => {
    switch (action.type) {
       case increment:
-        return state = state +1;
+        return state.num +1;
       case dicrement:
-        return state = state -1;
+        return state.num -1;
       default:
          return state;
    }
@@ -24,10 +27,5 @@ export let getDic = () => {
       type: 'DICREMENT'
    }
 }
-
-
-
-
-
 
 export default rootReducer;
