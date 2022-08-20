@@ -6,11 +6,11 @@ import rootReducer from './redux/redusers';
 import { combineReducers, legacy_createStore as createStore} from 'redux';
 import { Provider } from 'react-redux';
 
-// let redusers = combineReducers({
-//   rootReducer,
-// })
+let redusers = combineReducers({
+  num:rootReducer,
+})
 
-let store = createStore(rootReducer);
+let store = createStore(redusers);
 
 
     const root = ReactDOM.createRoot(document.getElementById('root'));

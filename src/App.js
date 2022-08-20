@@ -14,7 +14,7 @@ function App(props) {
 
 let mapStateToProps = (state) => {
   return {
-    result: state.num,
+    result: state.num.num,
   }
 };
 
