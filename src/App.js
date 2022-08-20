@@ -1,10 +1,10 @@
-import './App.css';
+import './App.module.css';
 import { getDic, getInk } from './redux/redusers';
 import {connect} from 'react-redux';
 
 function App(props) {
   return (
-    <div className="App">
+    <div className={App}>
       <button onClick={props.getPlus}>+</button>
       <button onClick={props.getMinus}>-</button>
       <div>Результат:{props.result}</div>
