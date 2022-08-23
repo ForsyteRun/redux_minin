@@ -5,11 +5,12 @@ import App from './App';
 import rootReducer from './redux/redusers';
 import { combineReducers, legacy_createStore as createStore} from 'redux';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
-import Status from './Status';
+import { BrowserRouter} from 'react-router-dom';
+import statusReduser from './redux/statusReduser';
 
 let redusers = combineReducers({
   num:rootReducer,
+  usersPage: statusReduser,
 })
 
 let store = createStore(redusers);
@@ -20,10 +21,7 @@ let store = createStore(redusers);
       <React.StrictMode>
         <BrowserRouter>
          <Provider store = {store}>
-                    <App/>
-            <Routes>
-              <Route path='/status' element = { <Status/>}/>
-            </Routes>
+              <App/> 
           </Provider>      
         </BrowserRouter>      
       </React.StrictMode>
