@@ -1,6 +1,7 @@
 let follow = 'FOLLOW';
 let unfollow = 'UNFOLLOW';
 let set_Users = 'SETUSERS';
+let current_Page = 'CURRENT_PAGE';
 
 let initialState = {
    users: [
@@ -39,7 +40,12 @@ let statusReduser = (state = initialState, action) => {
          return {
             ...state, 
             users: [...action.users],
-         }   
+         }
+      case current_Page:
+         return {
+            ...state,
+            currentPage: action.pageId,
+         }    
       default:
          return state;
    }
@@ -67,5 +73,12 @@ export let setUsers = (users) => {
    return{
       type: set_Users,
       users: users,
+   }
+}
+
+export let currentPage = (pageId) => {
+   return {
+      type: current_Page,
+      pageId: pageId,
    }
 }

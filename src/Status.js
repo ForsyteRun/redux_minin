@@ -1,7 +1,7 @@
 import style from './Status.module.css';
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { followAC, setUsers, unFollowAC } from "./redux/statusReduser";
+import { followAC, setUsers, unFollowAC, currentPage } from "./redux/statusReduser";
 
 
 class Status extends Component{
@@ -47,8 +47,10 @@ class Status extends Component{
               
             </div>) 
           }
-          <div>
-            {pages.map(el => <span className={this.props.currentPage === el && style.selected}>{el}</span>)}
+          <div className={style.pagi}>
+            {pages.map(el => 
+            <span className={this.props.currentPage === el && style.selected}
+            onClick ={() => {this.props.set_CurrentPage(el)}}>{el}</span>)}
           </div>
       </div>
     )
@@ -56,7 +58,6 @@ class Status extends Component{
 }
 
  let mapStateToProps = (state) => {
-  debugger
     return {
       dataUsers:state.usersPage.users,
       pageSize: state.usersPage.pageSize,
@@ -75,7 +76,10 @@ class Status extends Component{
       },
       set_Users: (users) => {
         dispatch(setUsers(users));  
-      }
+      },
+      set_CurrentPage: (pageId) => {
+        dispatch(currentPage(pageId))
+      },
     }
   }
 

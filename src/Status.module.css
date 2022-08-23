@@ -22,3 +22,7 @@ img{
   font-weight: 700;
   font-size: 24px;
 }
+
+.pagi span, button{
+  cursor: pointer;
+}
