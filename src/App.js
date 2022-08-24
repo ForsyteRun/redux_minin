@@ -2,7 +2,7 @@ import styles from'./App.module.css';
 import { getDic, getInk } from './redux/redusers';
 import {connect} from 'react-redux';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import Status from './Status';
+import StatusAPI from './StatusAPI';
 
 function App(props) {
   return (
@@ -12,7 +12,7 @@ function App(props) {
       <div>Результат:{props.result}</div>
       <NavLink to='/status'>Status</NavLink>
       <Routes>        
-              <Route path='/status' element = { <Status/>}/>
+              <Route path='/status' element = { <StatusAPI/>}/>
       </Routes>
     </div>
   );
