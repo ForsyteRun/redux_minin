@@ -11,13 +11,15 @@ let Status = (props) => {
     pages.push(i);
   }
 
+
   return (
     <div>
-    {props.dataUsers.map(el => 
+      
+      {props.dataUsers.map(el => 
       <div key={el.id} className = {style.content}>
         <span>
           <div>
-            <img src={el.imgUrl} className = {style.img}/>
+            <img src={el.url} className = {style.img}/>
           </div>
           <div>
             {el.fallowed 
@@ -26,7 +28,7 @@ let Status = (props) => {
           </div>
         </span>
         <span>
-          <span>{el.fullName}</span>
+          <span>{el.name}</span>
           <div>{el.status}</div>
           <div>{el.country}</div>
         </span>
@@ -36,10 +38,9 @@ let Status = (props) => {
     <div className={style.pagi}>
       {pages.map(el => 
       <span className={props.currentPage === el && style.selected}
-      onClick ={() => {props.set_CurrentPage(el)}}>{el}</span>)}
+      onClick ={() => props.onPageChange(el)}>{el}</span>)}
     </div>
-</div>
-
+    </div>
   )
 }
 

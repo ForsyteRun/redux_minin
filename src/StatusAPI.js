@@ -1,31 +1,48 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { followAC, setUsers, unFollowAC, currentPage } from "./redux/statusReduser";
+import { followAC, setUsers, unFollowAC, currentPage, toggleLoading, totalPages } from "./redux/statusReduser";
 import Status from './Status';
-
+import axios from "axios";
+import loadingGif from './img/loading.gif';
 
 class StatusAPI extends Component{
   
   componentDidMount(){   
-     this.props.set_Users( [
-      {id: 1, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Ivan', status: 'admin', country: 'USA', fallowed: false},
-      {id: 2, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Maria', status: 'admin', country: 'Bolgary',fallowed: false},
-      {id: 3, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Stepan', status: 'user', country: 'China', fallowed: true},
-      {id: 4, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Airan', status: 'user', country: 'Bali',fallowed: true},
-   ])
+    this.props.is_Loading(true)
+    
+      axios.get(`https://jsonplaceholder.typicode.com/photos?_limit=${this.props.pageSize}&_page=${this.props.currentPage}`)
+        .then(response => {
+              this.props.set_Users(response.data);
+              this.props.setTotalPages((response.headers['x-total-count']))
+            })
+
+    this.props.is_Loading(false)      
   }
+
+  onPageChange = (el) => {
+    debugger
+    this.props.set_CurrentPage(el);
+    axios.get(`https://jsonplaceholder.typicode.com/photos?_limit=${this.props.pageSize}&_page=${el}`)
+    .then(response =>{ this.props.set_Users(response.data)
+       this.props.setTotalPages(response.headers['x-total-count'])})    
+  }
+
 
   render(){
     return (
-      <Status pageSize ={this.props.pageSize}
-      totalUserCount = {this.props.totalUserCount}
-      dataUsers = {this.props.dataUsers}
-      currentPage = {this.props.currentPage}
-      follow = {this.props.follow}
-      unFollow = {this.props.unFollow}
-      set_Users = {this.props.set_Users}
-      set_CurrentPage = {this.props.set_CurrentPage}
-      />
+      <>
+      {this.props.isLoading ? <img src={loadingGif}/> : null}
+        <Status pageSize ={this.props.pageSize}
+        totalUserCount = {this.props.totalUserCount}
+        dataUsers = {this.props.dataUsers}
+        currentPage = {this.props.currentPage}
+        follow = {this.props.follow}
+        unFollow = {this.props.unFollow}
+        set_Users = {this.props.set_Users}
+        onPageChange = {this.onPageChange}
+        />
+      </>
+      
     )
   };
 }
@@ -36,10 +53,12 @@ class StatusAPI extends Component{
       pageSize: state.usersPage.pageSize,
       totalUserCount: state.usersPage.totalUserCount,
       currentPage: state.usersPage.currentPage,
+      isLoading: state.usersPage.isLoading,
     }
   }
   
   let mapDispatchToProps = (dispatch) => {
+    debugger
     return {
       follow: (userId) => {
         dispatch(followAC(userId));
@@ -53,6 +72,12 @@ class StatusAPI extends Component{
       set_CurrentPage: (pageId) => {
         dispatch(currentPage(pageId))
       },
+      setTotalPages: (pageNum) => {
+        dispatch(totalPages(pageNum))
+      },
+      is_Loading: (toogle) => {
+        dispatch(toggleLoading(toogle))
+      }
     }
   }
 

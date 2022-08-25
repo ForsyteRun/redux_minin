@@ -2,6 +2,9 @@ let follow = 'FOLLOW';
 let unfollow = 'UNFOLLOW';
 let set_Users = 'SETUSERS';
 let current_Page = 'CURRENT_PAGE';
+let toggle_Loading = 'toggle_loading';
+let total_pages = 'total_pages';
+
 
 let initialState = {
    users: [
@@ -10,9 +13,10 @@ let initialState = {
       // {id: 3, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Stepan', status: 'user', country: 'China', fallowed: true},
       // {id: 4, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Airan', status: 'user', country: 'Bali',fallowed: true},
    ],
-   pageSize: 4,
-   totalUserCount: 10,
-   currentPage: 2,
+   pageSize: 5,
+   totalUserCount: 50,
+   currentPage: 1,
+   isLoading: false,
 }
 
 let statusReduser = (state = initialState, action) => {
@@ -41,10 +45,23 @@ let statusReduser = (state = initialState, action) => {
             ...state, 
             users: [...action.users],
          }
+
       case current_Page:
          return {
             ...state,
             currentPage: action.pageId,
+         }
+
+      case total_pages:
+         return {
+            ...state,
+            totalUserCount: action.numPages,
+         }  
+
+      case toggle_Loading:
+         return {
+            ...state,
+            isLoading: action.isLoading,
          }    
       default:
          return state;
@@ -80,5 +97,19 @@ export let currentPage = (pageId) => {
    return {
       type: current_Page,
       pageId: pageId,
+   }
+}
+
+export let totalPages = (numPages) => {
+   return {
+      type: total_pages,
+      numPages: numPages,
+   }
+}
+
+export let toggleLoading = (isLoading) => {
+   return {
+      type: toggle_Loading,
+      isLoading: isLoading,
    }
 }
