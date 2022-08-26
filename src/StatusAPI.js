@@ -8,23 +8,22 @@ import loadingGif from './img/loading.gif';
 class StatusAPI extends Component{
   
   componentDidMount(){   
-    this.props.is_Loading(true)
+    this.props.toggleLoading(true)
     
       axios.get(`https://jsonplaceholder.typicode.com/photos?_limit=${this.props.pageSize}&_page=${this.props.currentPage}`)
         .then(response => {
-              this.props.set_Users(response.data);
-              this.props.setTotalPages((response.headers['x-total-count']))
+              this.props.setUsers(response.data);
+              this.props.totalPages((response.headers['x-total-count']))
             })
 
-    this.props.is_Loading(false)      
+    this.props.toggleLoading(false)      
   }
 
   onPageChange = (el) => {
-    debugger
+    
     this.props.set_CurrentPage(el);
     axios.get(`https://jsonplaceholder.typicode.com/photos?_limit=${this.props.pageSize}&_page=${el}`)
-    .then(response =>{ this.props.set_Users(response.data)
-       this.props.setTotalPages(response.headers['x-total-count'])})    
+    .then(response =>{ this.props.setUsers(response.data)})    
   }
 
 
@@ -36,9 +35,9 @@ class StatusAPI extends Component{
         totalUserCount = {this.props.totalUserCount}
         dataUsers = {this.props.dataUsers}
         currentPage = {this.props.currentPage}
-        follow = {this.props.follow}
-        unFollow = {this.props.unFollow}
-        set_Users = {this.props.set_Users}
+        follow = {this.props.followAC}
+        unFollow = {this.props.unFollowAC}
+        set_Users = {this.props.setUsers}
         onPageChange = {this.onPageChange}
         />
       </>
@@ -57,28 +56,30 @@ class StatusAPI extends Component{
     }
   }
   
-  let mapDispatchToProps = (dispatch) => {
-    debugger
-    return {
-      follow: (userId) => {
-        dispatch(followAC(userId));
-      },
-      unFollow: (userId) => {
-        dispatch(unFollowAC(userId));
-      },
-      set_Users: (users) => {
-        dispatch(setUsers(users));  
-      },
-      set_CurrentPage: (pageId) => {
-        dispatch(currentPage(pageId))
-      },
-      setTotalPages: (pageNum) => {
-        dispatch(totalPages(pageNum))
-      },
-      is_Loading: (toogle) => {
-        dispatch(toggleLoading(toogle))
-      }
-    }
-  }
+  // let mapDispatchToProps = (dispatch) => {
+  //   debugger
+  //   return {
+  //     follow: (userId) => {
+  //       dispatch(followAC(userId));
+  //     },
+  //     unFollow: (userId) => {
+  //       dispatch(unFollowAC(userId));
+  //     },
+  //     set_Users: (users) => {
+  //       dispatch(setUsers(users));  
+  //     },
+  //     set_CurrentPage: (pageId) => {
+  //       dispatch(currentPage(pageId))
+  //     },
+  //     setTotalPages: (pageNum) => {
+  //       dispatch(totalPages(pageNum))
+  //     },
+  //     is_Loading: (toogle) => {
+  //       dispatch(toggleLoading(toogle))
+  //     }
+  //   }
+  // }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatusAPI)
+export default connect(mapStateToProps, {
+  followAC, unFollowAC, setUsers, set_CurrentPage: currentPage, totalPages, toggleLoading
+})(StatusAPI)

@@ -3,7 +3,7 @@ import style from './Status.module.css';
 
 
 let Status = (props) => {
-  
+debugger  
   let maxPageCount = Math.ceil(props.totalUserCount / props.pageSize);
   let pages =[];
   
