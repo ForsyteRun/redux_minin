@@ -3,10 +3,9 @@ import { connect } from "react-redux";
 import { followAC, setUsers, unFollowAC, currentPage, toggleLoading, totalPages } from "./redux/statusReduser";
 import Status from './Status';
 import axios from "axios";
-import loadingGif from './img/loading.gif';
+import Preloader from "./Preloader";
 
 class StatusAPI extends Component{
-  
   componentDidMount(){   
     this.props.toggleLoading(true)
     
@@ -14,23 +13,28 @@ class StatusAPI extends Component{
         .then(response => {
               this.props.setUsers(response.data);
               this.props.totalPages((response.headers['x-total-count']))
+              console.log(111);
+              this.props.toggleLoading(false);      
             })
 
-    this.props.toggleLoading(false)      
+      
   }
 
   onPageChange = (el) => {
     
     this.props.set_CurrentPage(el);
+    this.props.toggleLoading(true)
     axios.get(`https://jsonplaceholder.typicode.com/photos?_limit=${this.props.pageSize}&_page=${el}`)
-    .then(response =>{ this.props.setUsers(response.data)})    
+    .then(response =>{ 
+      this.props.setUsers(response.data)
+      this.props.toggleLoading(false)})    
   }
 
 
   render(){
     return (
       <>
-      {this.props.isLoading ? <img src={loadingGif}/> : null}
+      {this.props.isLoading ? <Preloader/> : null}
         <Status pageSize ={this.props.pageSize}
         totalUserCount = {this.props.totalUserCount}
         dataUsers = {this.props.dataUsers}
@@ -55,30 +59,6 @@ class StatusAPI extends Component{
       isLoading: state.usersPage.isLoading,
     }
   }
-  
-  // let mapDispatchToProps = (dispatch) => {
-  //   debugger
-  //   return {
-  //     follow: (userId) => {
-  //       dispatch(followAC(userId));
-  //     },
-  //     unFollow: (userId) => {
-  //       dispatch(unFollowAC(userId));
-  //     },
-  //     set_Users: (users) => {
-  //       dispatch(setUsers(users));  
-  //     },
-  //     set_CurrentPage: (pageId) => {
-  //       dispatch(currentPage(pageId))
-  //     },
-  //     setTotalPages: (pageNum) => {
-  //       dispatch(totalPages(pageNum))
-  //     },
-  //     is_Loading: (toogle) => {
-  //       dispatch(toggleLoading(toogle))
-  //     }
-  //   }
-  // }
 
 export default connect(mapStateToProps, {
   followAC, unFollowAC, setUsers, set_CurrentPage: currentPage, totalPages, toggleLoading
