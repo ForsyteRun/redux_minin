@@ -7,10 +7,12 @@ import { combineReducers, legacy_createStore as createStore} from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter} from 'react-router-dom';
 import statusReduser from './redux/statusReduser';
+import profileReduser from './redux/profileReduser';
 
 let redusers = combineReducers({
   num:rootReducer,
   usersPage: statusReduser,
+  profile:profileReduser,
 })
 
 let store = createStore(redusers);

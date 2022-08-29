@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import style from './Status.module.css';
 
 
@@ -16,7 +17,9 @@ let Status = (props) => {
       <div key={el.id} className = {style.content}>
         <span>
           <div>
-            <img src={el.url} className = {style.img}/>
+            <NavLink to = {'/profile/' + el.id}>
+              <img src={el.url} className = {style.img}/>
+            </NavLink>
           </div>
           <div>
             {el.fallowed 

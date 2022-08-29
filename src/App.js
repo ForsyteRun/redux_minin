@@ -3,6 +3,7 @@ import { getDic, getInk } from './redux/redusers';
 import {connect} from 'react-redux';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import StatusAPI from './StatusAPI';
+import ProfileConteiner from './ProfileConteiner';
 
 function App(props) {
   return (
@@ -13,6 +14,7 @@ function App(props) {
       <NavLink to='/status'>Status</NavLink>
       <Routes>        
               <Route path='/status' element = { <StatusAPI/>}/>
+              <Route path='/profile/:id' element = { <ProfileConteiner/>}/>
       </Routes>
     </div>
   );
