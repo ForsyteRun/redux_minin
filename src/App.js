@@ -4,18 +4,24 @@ import {connect} from 'react-redux';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import StatusAPI from './StatusAPI';
 import ProfileConteiner from './ProfileConteiner';
+import HeaderConteiner from './HeaderConteiner';
+import AuthConteiner from './AuthConteiner';
 
 function App(props) {
   return (
-    <div className={styles.App}>
-      <button onClick={props.getPlus}>+</button>
-      <button onClick={props.getMinus}>-</button>
-      <div>Результат:{props.result}</div>
-      <NavLink to='/status'>Status</NavLink>
-      <Routes>        
-              <Route path='/status' element = { <StatusAPI/>}/>
-              <Route path='/profile/:id' element = { <ProfileConteiner/>}/>
-      </Routes>
+    <div>
+      <HeaderConteiner/>
+      <div className={styles.App}>  
+        <button onClick={props.getPlus}>+</button>
+        <button onClick={props.getMinus}>-</button>
+        <div>Результат:{props.result}</div>
+        <NavLink to='/status'>Status</NavLink>
+        <Routes>        
+                <Route path='/status' element = { <StatusAPI/>}/>
+                <Route path='/profile/:id' element = { <ProfileConteiner/>}/>
+                <Route path='/auth' element = { <AuthConteiner/>}/>
+        </Routes>
+      </div>
     </div>
   );
 }

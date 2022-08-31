@@ -8,11 +8,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter} from 'react-router-dom';
 import statusReduser from './redux/statusReduser';
 import profileReduser from './redux/profileReduser';
+import authReduser from './redux/authReduser';
 
 let redusers = combineReducers({
   num:rootReducer,
   usersPage: statusReduser,
   profile:profileReduser,
+  auth: authReduser,
 })
 
 let store = createStore(redusers);

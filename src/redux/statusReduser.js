@@ -72,6 +72,7 @@ let statusReduser = (state = initialState, action) => {
 export default statusReduser;
 
 export let followAC = (userId) => {
+   debugger
    return {
       type: follow,
       userId: userId,
