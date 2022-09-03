@@ -18,7 +18,7 @@ let initialState = {
    totalUserCount: 50,
    currentPage: 1,
    isLoading: false,
-   isFollowingProgress: false,
+   isFollowingProgress: [],
 }
 
 let statusReduser = (state = initialState, action) => {
@@ -69,7 +69,9 @@ let statusReduser = (state = initialState, action) => {
       case is_Following_Progres:
          return {
             ...state, 
-            isFollowingProgress: action.isLoading,
+            isFollowingProgress: action.isFollowBoolean 
+                               ? [...state.isFollowingProgress, action.id] 
+                               : state.isFollowingProgress.filter(id => id !== action.id),
          }
 
       default:
@@ -123,9 +125,10 @@ export let toggleLoading = (isLoading) => {
    }
 }
 
-export let isFollowing = (isLoading) => {
+export let isFollowing = (isFollowBoolean, id) => {
    return {
       type: is_Following_Progres,
-      isLoading,
+      id,
+      isFollowBoolean,
    }
 }
