@@ -1,23 +1,21 @@
-import * as axios from "axios";
 import { Component } from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {setProfileAC} from './redux/profileReduser';
 import { useLocation, useParams } from "react-router-dom";
+import { getUserProfile } from "./api/api";
 
 class ProfileConteiner extends Component{
   
   componentDidMount(){
     let match = this.props.router.params.id;
-    axios.get('https://jsonplaceholder.typicode.com/users/' + match)
+    getUserProfile(match)
       .then(response => {
-        console.log(response.data);
-            this.props.setProfileAC(response.data)
+          this.props.setProfileAC(response)
       })
   }
 
   render(){
-  
     return (
       <div>
         <Profile data={this.props.userProfile}/>

@@ -1,15 +1,14 @@
-import axios from "axios";
 import React, { Component } from "react";
 import {connect} from 'react-redux';
+import { getAuth } from "./api/api";
 import Header from "./Header";
 import {authAC} from './redux/authReduser';
-
 class HeaderConteiner extends Component {
   componentDidMount(){
-      axios.get('https://630f1ba6498924524a860c3f.mockapi.io/auth/1')
+    getAuth()
       .then(response => {
-        if(response.data.resultCode === true){
-          let {login, email} = response.data;
+        if(response.resultCode === true){
+          let {login, email} = response;
           this.props.authAC(login, email);
         }
       })

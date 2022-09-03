@@ -2,34 +2,26 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { followAC, setUsers, unFollowAC, currentPage, toggleLoading, totalPages } from "./redux/statusReduser";
 import Status from './Status';
-import axios from "axios";
 import Preloader from "./Preloader";
+import { getUsersApi } from "./api/api";
 
 class StatusAPI extends Component{
   componentDidMount(){   
-    this.props.toggleLoading(true)
-    
-      axios.get(`https://jsonplaceholder.typicode.com/photos?_limit=${this.props.pageSize}&_page=${this.props.currentPage}`)
-        .then(response => {
+    this.props.toggleLoading(true);    
+    getUsersApi(this.props.pageSize, this.props.currentPage).then(response => {
               this.props.setUsers(response.data);
               this.props.totalPages((response.headers['x-total-count']))
-              console.log(111);
               this.props.toggleLoading(false);      
             })
-
-      
-  }
+  };
 
   onPageChange = (el) => {
-    
     this.props.set_CurrentPage(el);
     this.props.toggleLoading(true)
-    axios.get(`https://jsonplaceholder.typicode.com/photos?_limit=${this.props.pageSize}&_page=${el}`)
-    .then(response =>{ 
+    getUsersApi(this.props.pageSize, el).then(response =>{ 
       this.props.setUsers(response.data)
       this.props.toggleLoading(false)})    
   }
-
 
   render(){
     return (
@@ -45,7 +37,6 @@ class StatusAPI extends Component{
         onPageChange = {this.onPageChange}
         />
       </>
-      
     )
   };
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { getFollow, getUnFollow } from "./api/api";
 import style from './Status.module.css';
-
 
 let Status = (props) => {
   let maxPageCount = Math.ceil(props.totalUserCount / props.pageSize);
@@ -22,9 +22,20 @@ let Status = (props) => {
             </NavLink>
           </div>
           <div>
-            {el.fallowed 
-            ? <button onClick={() => {props.unFollow(el.id)}}>Follow</button> 
-            : <button onClick={() => {props.follow(el.id)}}>UnFollow</button>}
+            {el.fallowed ?
+              <button onClick={() => {   
+                getFollow(el.id)
+                .then(response => {     
+                  props.unFollow(response.id)})
+                .catch(console.log('error delete'))           
+              }}>Follow</button>
+            : <button onClick={()=>{
+              debugger
+                getUnFollow(el.id, el.url)
+                .then(res => {
+                  props.follow(res.id)})
+                .catch(console.log('error post'))
+              }}>UnFollow</button>}
           </div>
         </span>
         <span>
@@ -32,7 +43,6 @@ let Status = (props) => {
           <div>{el.status}</div>
           <div>{el.country}</div>
         </span>
-        
       </div>) 
     }
     <div className={style.pagi}>

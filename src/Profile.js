@@ -1,7 +1,6 @@
 import React from "react";
 import Preloader from "./Preloader";
 
-
 let Profile = (props) => {
 
   if (!props.data){
@@ -12,7 +11,6 @@ let Profile = (props) => {
     <div>
       <div>{props.data.userData.name}</div>
       <div>{props.data.userData.email}</div>
-     
     </div>
   )
 }
