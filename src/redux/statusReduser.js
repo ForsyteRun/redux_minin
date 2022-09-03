@@ -4,6 +4,7 @@ let set_Users = 'SETUSERS';
 let current_Page = 'CURRENT_PAGE';
 let toggle_Loading = 'toggle_loading';
 let total_pages = 'total_pages';
+let is_Following_Progres = 'IS_FOLLOWING_PROGRESS';
 
 
 let initialState = {
@@ -17,6 +18,7 @@ let initialState = {
    totalUserCount: 50,
    currentPage: 1,
    isLoading: false,
+   isFollowingProgress: false,
 }
 
 let statusReduser = (state = initialState, action) => {
@@ -63,6 +65,13 @@ let statusReduser = (state = initialState, action) => {
             ...state,
             isLoading: action.isLoading,
          }    
+
+      case is_Following_Progres:
+         return {
+            ...state, 
+            isFollowingProgress: action.isLoading,
+         }
+
       default:
          return state;
    }
@@ -111,5 +120,12 @@ export let toggleLoading = (isLoading) => {
    return {
       type: toggle_Loading,
       isLoading: isLoading,
+   }
+}
+
+export let isFollowing = (isLoading) => {
+   return {
+      type: is_Following_Progres,
+      isLoading,
    }
 }

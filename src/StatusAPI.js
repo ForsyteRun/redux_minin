@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { followAC, setUsers, unFollowAC, currentPage, toggleLoading, totalPages } from "./redux/statusReduser";
+import { followAC, setUsers, unFollowAC, currentPage, toggleLoading, totalPages, isFollowing} from "./redux/statusReduser";
 import Status from './Status';
 import Preloader from "./Preloader";
 import { getUsersApi } from "./api/api";
@@ -35,6 +35,8 @@ class StatusAPI extends Component{
         unFollow = {this.props.unFollowAC}
         set_Users = {this.props.setUsers}
         onPageChange = {this.onPageChange}
+        isFollowing = {this.props.isFollowing}
+        isFollowingData = {this.props.isFollowingData}
         />
       </>
     )
@@ -48,9 +50,10 @@ class StatusAPI extends Component{
       totalUserCount: state.usersPage.totalUserCount,
       currentPage: state.usersPage.currentPage,
       isLoading: state.usersPage.isLoading,
+      isFollowingData: state.usersPage.isFollowingProgress,
     }
   }
 
 export default connect(mapStateToProps, {
-  followAC, unFollowAC, setUsers, set_CurrentPage: currentPage, totalPages, toggleLoading
+  followAC, unFollowAC, setUsers, set_CurrentPage: currentPage, totalPages, toggleLoading, isFollowing
 })(StatusAPI)

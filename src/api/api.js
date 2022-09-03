@@ -1,6 +1,9 @@
 import axios from "axios";
-const baseUrlMock = 'https://630f1ba6498924524a860c3f.mockapi.io/';
 const baseUrlHolder = 'https://jsonplaceholder.typicode.com/';
+
+const instance = axios.create({
+   baseURL: 'https://630f1ba6498924524a860c3f.mockapi.io/',
+ });
 
 
 export const getUsersApi = (pageSize = 5, currentPage = 1) => {
@@ -8,12 +11,12 @@ export const getUsersApi = (pageSize = 5, currentPage = 1) => {
 }
 
 export const getFollow = (id) => {
-   return axios.delete(baseUrlMock + `follow/${id}`)
+   return instance.delete(`follow/${id}`)
    .then(response => response.data)
 }
 
 export const getUnFollow = (id, url) => {
-   return  axios.post(baseUrlMock + 'follow/',{
+   return  instance.post('follow/',{
       id,
       url,
       fallowed: true,       
@@ -26,6 +29,6 @@ export const getUserProfile = (match) => {
 }
 
 export const getAuth = () => {
-   return  axios.get(baseUrlMock + 'auth/1')
+   return  instance.get('auth/1')
    .then(response => response.data)
 }

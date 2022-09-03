@@ -23,18 +23,27 @@ let Status = (props) => {
           </div>
           <div>
             {el.fallowed ?
-              <button onClick={() => {   
+              <button disabled = {props.isFollowingData} onClick={() => {  
+                
+                props.isFollowing(true);
+              
                 getFollow(el.id)
                 .then(response => {     
-                  props.unFollow(response.id)})
-                .catch(console.log('error delete'))           
+                  props.unFollow(response.id)
+                  props.isFollowing(false)})
+                .catch(console.log('error delete'))
+                      
               }}>Follow</button>
-            : <button onClick={()=>{
-              debugger
+            : <button disabled = {props.isFollowingData} onClick={()=>{
+              
+                props.isFollowing(true);
+                
                 getUnFollow(el.id, el.url)
                 .then(res => {
-                  props.follow(res.id)})
+                  props.follow(res.id)
+                  props.isFollowing(false)})
                 .catch(console.log('error post'))
+                
               }}>UnFollow</button>}
           </div>
         </span>
