@@ -1,11 +1,13 @@
+import { getUserProfile } from "../api/api";
+
 let set_Profile = 'SET_PROFILE';
 
 let initialState = {
-   userData: 5,
+   userData: 6,
 }
 
 let profileReduser = (state = initialState, action) => {
-   switch (action.type) {
+     switch (action.type) {
       case set_Profile:
          return {
             ...state,
@@ -26,3 +28,14 @@ export let setProfileAC = (data) => {
    }
 }
 
+export const getUserProfileThunkCreator = (match) => {
+   return (dispatch) => {
+      getUserProfile(match)
+      .then(response => {
+          dispatch(setProfileAC(response))
+      })
+      .catch(new Error('Error'))
+   }
+}
+
+ 

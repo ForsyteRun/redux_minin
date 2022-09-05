@@ -1,3 +1,5 @@
+import { getUsersApi } from "../api/api";
+
 let follow = 'FOLLOW';
 let unfollow = 'UNFOLLOW';
 let set_Users = 'SETUSERS';
@@ -8,12 +10,7 @@ let is_Following_Progres = 'IS_FOLLOWING_PROGRESS';
 
 
 let initialState = {
-   users: [
-      // {id: 1, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Ivan', status: 'admin', country: 'USA', fallowed: false},
-      // {id: 2, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Maria', status: 'admin', country: 'Bolgary',fallowed: false},
-      // {id: 3, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Stepan', status: 'user', country: 'China', fallowed: true},
-      // {id: 4, imgUrl: 'https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png', fullName: 'Airan', status: 'user', country: 'Bali',fallowed: true},
-   ],
+   users: [],
    pageSize: 5,
    totalUserCount: 50,
    currentPage: 1,
@@ -132,3 +129,24 @@ export let isFollowing = (isFollowBoolean, id) => {
       isFollowBoolean,
    }
 }
+
+export const getUsersThunkCreater = (pageSize, currentPage) => {
+   return (dispath) => {
+      dispath(toggleLoading(true))    
+      getUsersApi(pageSize, currentPage).then(response => {
+               dispath(setUsers(response.data));
+               dispath(totalPages((response.headers['x-total-count'])));
+               dispath(toggleLoading(false))      
+            })
+}};
+
+export const getPageChangeThunkCreater = (pageSize, el) => {
+   return (dispatch) => {
+      dispatch(currentPage(el))
+      dispatch(toggleLoading(true))
+      getUsersApi(pageSize, el).then(response =>{ 
+        dispatch(setUsers(response.data))
+        dispatch(toggleLoading(false))
+      })    
+    }
+   }

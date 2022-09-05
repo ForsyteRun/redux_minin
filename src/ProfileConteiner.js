@@ -1,18 +1,13 @@
 import { Component } from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {setProfileAC} from './redux/profileReduser';
 import { useLocation, useParams } from "react-router-dom";
-import { getUserProfile } from "./api/api";
-
+import {getUserProfileThunkCreator} from './redux/profileReduser';
 class ProfileConteiner extends Component{
   
   componentDidMount(){
     let match = this.props.router.params.id;
-    getUserProfile(match)
-      .then(response => {
-          this.props.setProfileAC(response)
-      })
+    this.props.getUserProfileThunkCreator(match);
   }
 
   render(){
@@ -43,4 +38,4 @@ const withRouter = WrappedComponent => props => {
 }
 
 let RouterComponent = withRouter(ProfileConteiner)
-export default connect(mapStateToProps, {setProfileAC})(RouterComponent);
+export default connect(mapStateToProps, {getUserProfileThunkCreator})(RouterComponent);

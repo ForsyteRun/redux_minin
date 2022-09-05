@@ -1,3 +1,5 @@
+import { getAuth } from "../api/api";
+
 let setAuth = 'SET_AUTH';
 
 let initialState = {
@@ -26,10 +28,21 @@ export default authReduser;
 export let authAC = (login, email) => {
    return{
       type: setAuth,
-      login,
-      email,
+      login: login,
+      email: email,
    }
 }
 
-
+export const getHeaderThunkCreater = () => {
+   return (dispatch) => {
+      getAuth()
+      .then(response => {
+        if(response.resultCode === true){
+          let {login, email} = response;
+          dispatch(authAC(login, email))
+        }
+      })
+      .catch(new Error('error getHeaderThunkCreater'))
+   }
+}
 

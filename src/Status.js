@@ -32,7 +32,7 @@ let Status = (props) => {
                   
                   props.unFollow(response.id)
                   props.isFollowing(false, response.id)})
-                .catch(console.log('error delete'))
+                .catch(new Error('getFollow errror'))
                       
               }}>Follow</button>
             : <button disabled = {props.isFollowingData.some(id => id === el.id)} onClick={()=>{
@@ -44,7 +44,7 @@ let Status = (props) => {
                   
                   props.follow(res.id)
                   props.isFollowing(false, res.id)})
-                .catch(console.log('error post'))
+                .catch(new Error('follow error'))
                 
               }}>UnFollow</button>}
           </div>
@@ -58,7 +58,7 @@ let Status = (props) => {
     }
     <div className={style.pagi}>
       {pages.map(el => 
-      <span className={props.currentPage === el && style.selected}
+      <span className={props.currentPageData === el && style.selected}
       onClick ={() => props.onPageChange(el)}>{el}</span>)}
     </div>
     </div>

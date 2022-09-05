@@ -1,27 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { followAC, setUsers, unFollowAC, currentPage, toggleLoading, totalPages, isFollowing} from "./redux/statusReduser";
+import {
+   followAC, 
+   unFollowAC,   
+   isFollowing, 
+   getUsersThunkCreater,
+   getPageChangeThunkCreater
+  } from "./redux/statusReduser";
 import Status from './Status';
 import Preloader from "./Preloader";
-import { getUsersApi } from "./api/api";
 
 class StatusAPI extends Component{
   componentDidMount(){   
-    this.props.toggleLoading(true);    
-    getUsersApi(this.props.pageSize, this.props.currentPage).then(response => {
-              this.props.setUsers(response.data);
-              this.props.totalPages((response.headers['x-total-count']))
-              this.props.toggleLoading(false);      
-            })
+    this.props.getUsersThunkCreater(this.props.pageSize, this.props.currentPage)
   };
 
   onPageChange = (el) => {
-    this.props.set_CurrentPage(el);
-    this.props.toggleLoading(true)
-    getUsersApi(this.props.pageSize, el).then(response =>{ 
-      this.props.setUsers(response.data)
-      this.props.toggleLoading(false)})    
+    this.props.getPageChangeThunkCreater(this.props.pageSize, el)
   }
+  
 
   render(){
     return (
@@ -30,7 +27,7 @@ class StatusAPI extends Component{
         <Status pageSize ={this.props.pageSize}
         totalUserCount = {this.props.totalUserCount}
         dataUsers = {this.props.dataUsers}
-        currentPage = {this.props.currentPage}
+        currentPageData = {this.props.currentPageData}
         follow = {this.props.followAC}
         unFollow = {this.props.unFollowAC}
         set_Users = {this.props.setUsers}
@@ -48,12 +45,13 @@ class StatusAPI extends Component{
       dataUsers:state.usersPage.users,
       pageSize: state.usersPage.pageSize,
       totalUserCount: state.usersPage.totalUserCount,
-      currentPage: state.usersPage.currentPage,
+      currentPageData: state.usersPage.currentPage,
       isLoading: state.usersPage.isLoading,
       isFollowingData: state.usersPage.isFollowingProgress,
     }
   }
 
 export default connect(mapStateToProps, {
-  followAC, unFollowAC, setUsers, set_CurrentPage: currentPage, totalPages, toggleLoading, isFollowing
+  followAC, unFollowAC, isFollowing,
+   getUsersThunkCreater, getPageChangeThunkCreater
 })(StatusAPI)

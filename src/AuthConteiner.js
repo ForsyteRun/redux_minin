@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Auth from "./Auth";
 import {connect} from 'react-redux';
-
 class AuthConteiner extends Component {
   
   render(){
