@@ -22,7 +22,7 @@ class StatusAPI extends Component{
 
   render(){
     return (
-      <>
+      <div>
       {this.props.isLoading ? <Preloader/> : null}
         <Status pageSize ={this.props.pageSize}
         totalUserCount = {this.props.totalUserCount}
@@ -34,8 +34,9 @@ class StatusAPI extends Component{
         onPageChange = {this.onPageChange}
         isFollowing = {this.props.isFollowing}
         isFollowingData = {this.props.isFollowingData}
+        data = {'Enter any'}
         />
-      </>
+      </div>
     )
   };
 }
