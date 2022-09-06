@@ -1,23 +1,19 @@
 import React, { Component } from "react";
-import Music from "./Music";
+import Register from "./Register";
 import {connect} from 'react-redux';
 import { withNavigate } from "./hoc/withNavigate";
 import { compose } from "redux";
 
-class MusicConteiner extends Component{
-
+class RegisterConteiner extends Component{
+   
    render(){
-      return (
-         <div>
-            <Music {...this.props}/>
-         </div>
+      return(
+         <Register {...this.props}/>
       )
    }
 }
 
-export default  compose(
+export default compose(
    connect(),
    withNavigate
-   )(MusicConteiner)
-
-
+   )(RegisterConteiner) 

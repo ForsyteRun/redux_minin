@@ -7,6 +7,7 @@ import ProfileConteiner from './ProfileConteiner';
 import HeaderConteiner from './HeaderConteiner';
 import AuthConteiner from './AuthConteiner';
 import MusicConteiner from './MusicConteiner';
+import RegisterConteiner from './RegisterConteiner';
 
 function App(props) {
   return (
@@ -18,11 +19,13 @@ function App(props) {
         <div>Результат:{props.result}</div>
         <NavLink to='/status' style={{margin:'20px'}}>Status</NavLink>
         <NavLink to='/music'>Music</NavLink>
+        <NavLink to='/register' style={{margin: '20px'}}>Register</NavLink>
         <Routes>        
                 <Route path='/status' element = { <StatusAPI/>}/>
                 <Route path='/profile/:id' element = { <ProfileConteiner/>}/>
                 <Route path='/auth' element = { <AuthConteiner/>}/>
                 <Route path='/music' element = { <MusicConteiner/>}/>
+                <Route path='/register' element = {<RegisterConteiner/>}/>
         </Routes>
       </div>
     </div>
