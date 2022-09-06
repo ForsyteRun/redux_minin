@@ -6,6 +6,7 @@ import StatusAPI from './StatusAPI';
 import ProfileConteiner from './ProfileConteiner';
 import HeaderConteiner from './HeaderConteiner';
 import AuthConteiner from './AuthConteiner';
+import MusicConteiner from './MusicConteiner';
 
 function App(props) {
   return (
@@ -15,11 +16,13 @@ function App(props) {
         <button onClick={props.getPlus}>+</button>
         <button onClick={props.getMinus}>-</button>
         <div>Результат:{props.result}</div>
-        <NavLink to='/status'>Status</NavLink>
+        <NavLink to='/status' style={{margin:'20px'}}>Status</NavLink>
+        <NavLink to='/music'>Music</NavLink>
         <Routes>        
                 <Route path='/status' element = { <StatusAPI/>}/>
                 <Route path='/profile/:id' element = { <ProfileConteiner/>}/>
                 <Route path='/auth' element = { <AuthConteiner/>}/>
+                <Route path='/music' element = { <MusicConteiner/>}/>
         </Routes>
       </div>
     </div>

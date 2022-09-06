@@ -7,7 +7,6 @@ let initialState = {
    email: null,
    isLoading: false,
    isAuth: false,
-   
 }
 
 let authReduser = (state = initialState, action) => {

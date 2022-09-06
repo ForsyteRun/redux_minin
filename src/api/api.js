@@ -6,7 +6,7 @@ const instance = axios.create({
  });
 
 
-export const getUsersApi = (pageSize = 5, currentPage = 1) => {
+export const getUsersApi = (pageSize, currentPage) => {
    return axios.get(baseUrlHolder + `photos?_limit=${pageSize}&_page=${currentPage}`)
 }
 

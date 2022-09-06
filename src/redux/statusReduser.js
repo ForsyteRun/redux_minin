@@ -82,7 +82,7 @@ export default statusReduser;
 export let followAC = (userId) => {
    return {
       type: follow,
-      userId: userId,
+      userId,
    }
         
 };
@@ -90,35 +90,35 @@ export let followAC = (userId) => {
 export let unFollowAC = (userId) => {
    return{
       type: unfollow,
-      userId: userId,
+      userId,
    }
 };
 
 export let setUsers = (users) => {
    return{
       type: set_Users,
-      users: users,
+      users,
    }
 }
 
 export let currentPage = (pageId) => {
    return {
       type: current_Page,
-      pageId: pageId,
+      pageId,
    }
 }
 
 export let totalPages = (numPages) => {
    return {
       type: total_pages,
-      numPages: numPages,
+      numPages,
    }
 }
 
 export let toggleLoading = (isLoading) => {
    return {
       type: toggle_Loading,
-      isLoading: isLoading,
+      isLoading,
    }
 }
 
@@ -140,11 +140,11 @@ export const getUsersThunkCreater = (pageSize, currentPage) => {
             })
 }};
 
-export const getPageChangeThunkCreater = (pageSize, el) => {
+export const getPageChangeThunkCreater = (pageSize, nextPage) => {
    return (dispatch) => {
-      dispatch(currentPage(el))
+      dispatch(currentPage(nextPage))
       dispatch(toggleLoading(true))
-      getUsersApi(pageSize, el).then(response =>{ 
+      getUsersApi(pageSize, nextPage).then(response =>{ 
         dispatch(setUsers(response.data))
         dispatch(toggleLoading(false))
       })    
