@@ -29,6 +29,28 @@ export const getUserProfile = (match) => {
 }
 
 export const getAuth = () => {
-   return  instance.get('auth/1')
-   .then(response => response.data)
+   return  profileAPI.getUserProfile()
+}
+
+export const profileAPI = {
+   getUserProfile (match) {
+      return axios.get(baseUrlHolder + 'users/' + match)
+      .then(response => response.data)
+   },
+
+   getStatus(){
+      return instance.get('status/')
+   },
+
+   updateStatus(status){
+      return instance.put('status/1', {
+         status:status,
+      })
+   },
+
+   setStatus(status){
+      return instance.push('status/', {
+         status:status,
+      }).then(res =>res.data)
+   },
 }

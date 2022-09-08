@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { getFollow, getUnFollow } from "./api/api";
-import News from "./News";
+import NewsConteiner from "./NewsConteiner";
 import style from './Status.module.css';
 
 let Status = (props) => {
@@ -14,7 +14,7 @@ let Status = (props) => {
 
   return (
     <div>
-        <News data = {props.data}/>
+        <NewsConteiner data = {props.data}/>
         {props.dataUsers.map(el => 
         <div key={el.id} className = {style.content}>
           <span>

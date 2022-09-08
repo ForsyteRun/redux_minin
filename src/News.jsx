@@ -4,6 +4,7 @@ class News extends Component{
 
    state = {
       editMode: true,
+      status: this.props.status,
    };
 
    activeEditMode = () => {
@@ -16,6 +17,13 @@ class News extends Component{
       this.setState({
          editMode: true,
       })
+      this.props.updateNewsThunkCreater(this.state.status);
+   }
+
+   onChangeStatus = (event) => {
+      this.setState({
+         status: event.target.value,
+      })
    }
 
    render(){
@@ -24,13 +32,14 @@ class News extends Component{
             { this.state.editMode &&
                <div>
                   <span onDoubleClick={this.activeEditMode}>
-                     {this.props.data}
+                     {this.props.status}
                   </span>
                </div>
             }
             { !this.state.editMode &&
                <div style={{alignSelf:'center'}}>
-                  <input autoFocus={true} onBlur={this.deactivateEditMode} placeholder={this.props.data}></input>
+                  <input autoFocus={true} onBlur={this.deactivateEditMode} 
+                  value={this.state.status} onChange={this.onChangeStatus}></input>
                </div>        
             } 
          </div>

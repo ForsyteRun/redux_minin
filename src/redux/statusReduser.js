@@ -1,4 +1,4 @@
-import { getUsersApi } from "../api/api";
+import { getUsersApi, profileAPI } from "../api/api";
 
 let follow = 'FOLLOW';
 let unfollow = 'UNFOLLOW';
@@ -7,7 +7,8 @@ let current_Page = 'CURRENT_PAGE';
 let toggle_Loading = 'toggle_loading';
 let total_pages = 'total_pages';
 let is_Following_Progres = 'IS_FOLLOWING_PROGRESS';
-
+let get_Status = 'GET_STATUS';
+let update_Status = 'UPDATE_STATUS';
 
 let initialState = {
    users: [],
@@ -16,6 +17,7 @@ let initialState = {
    currentPage: 1,
    isLoading: false,
    isFollowingProgress: [],
+   status: 'enter status',
 }
 
 let statusReduser = (state = initialState, action) => {
@@ -69,6 +71,20 @@ let statusReduser = (state = initialState, action) => {
             isFollowingProgress: action.isFollowBoolean 
                                ? [...state.isFollowingProgress, action.id] 
                                : state.isFollowingProgress.filter(id => id !== action.id),
+         }
+
+      case get_Status:
+      let i;   
+      for (i of action.status)
+         return {
+            ...state,
+            status: i.status
+         }
+
+      case update_Status:
+         return {
+            ...state, 
+            status: action.reStatus
          }
 
       default:
@@ -130,6 +146,20 @@ export let isFollowing = (isFollowBoolean, id) => {
    }
 }
 
+export const getStatus = (status) => {
+   return {
+      type: get_Status,
+      status,
+   }
+}
+
+const updateStatus = (reStatus) => {
+   return {
+      type: update_Status,
+      reStatus,
+   }
+}
+
 export const getUsersThunkCreater = (pageSize, currentPage) => {
    return (dispath) => {
       dispath(toggleLoading(true))    
@@ -150,3 +180,25 @@ export const getPageChangeThunkCreater = (pageSize, nextPage) => {
       })    
     }
    }
+
+export const getNewsThunkCreater = () => {
+   return (dispatch) => {
+      profileAPI.getStatus().then(res=>{
+         dispatch(getStatus(res.data))
+      });
+      
+   }
+}
+
+export const setNewsThunkCreater = (status) => {
+   return (dispatch) => {
+      profileAPI.setStatus(status)
+   }
+}
+
+export const updateNewsThunkCreater = (reStatus) => {
+   return (dispatch) => {
+       profileAPI.updateStatus(reStatus)
+       .then(res => dispatch(updateStatus(res.data.status)))
+   }
+}
