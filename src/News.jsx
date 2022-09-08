@@ -7,6 +7,14 @@ class News extends Component{
       status: this.props.status,
    };
 
+   componentDidUpdate(prevProps, prevState){
+      if(prevProps.status != this.props.status){
+         this.setState({
+            status:  this.props.states
+         })
+      }
+   }
+
    activeEditMode = () => {
       this.setState ({
          editMode: false,
