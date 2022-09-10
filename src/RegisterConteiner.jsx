@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Register from "./Register";
 import {connect} from 'react-redux';
-import { withNavigate } from "./hoc/withNavigate";
 import { compose } from "redux";
 
 class RegisterConteiner extends Component{
@@ -15,5 +14,4 @@ class RegisterConteiner extends Component{
 
 export default compose(
    connect(),
-   withNavigate
    )(RegisterConteiner) 

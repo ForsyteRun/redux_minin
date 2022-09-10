@@ -1,0 +1,9 @@
+.errors {
+   color: red;
+   font-size: 12px;
+}
+
+.form_conteiner {
+   align-items: center;
+   margin-bottom: 20px;
+}
