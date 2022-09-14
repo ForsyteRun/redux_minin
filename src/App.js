@@ -8,8 +8,13 @@ import HeaderConteiner from './HeaderConteiner';
 import AuthConteiner from './AuthConteiner';
 import MusicConteiner from './MusicConteiner';
 import RegisterConteiner from './RegisterConteiner';
+import Dashboard from './Dashboard';
+import Preferenses from './Preferenses';
+import Register from './Register';
+import react, { useState } from 'react';
 
 function App(props) {
+
   return (
     <div>
       <HeaderConteiner/>
@@ -26,6 +31,8 @@ function App(props) {
                 <Route path='/auth' element = { <AuthConteiner/>}/>
                 <Route path='/music' element = { <MusicConteiner/>}/>
                 <Route path='/register' element = {<RegisterConteiner/>}/>
+                <Route path='/dashboard' element = {<Dashboard/>}/>
+                <Route path='/preferenses' element = {<Preferenses/>}/>
         </Routes>
       </div>
     </div>

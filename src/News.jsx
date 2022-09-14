@@ -1,5 +1,11 @@
+import { Field, Form, Formik } from "formik";
 import React, { Component } from "react";
+import { validate } from "./formik/validateSchema";
+import styles from './News.module.css';
 
+const initialValues = {
+   status: '22'
+};
 class News extends Component{
 
    state = {
@@ -26,12 +32,17 @@ class News extends Component{
          editMode: true,
       })
       this.props.updateNewsThunkCreater(this.state.status);
+      this.onSubmit()
    }
 
-   onChangeStatus = (event) => {
+   onChangeStatus = (e) => {
       this.setState({
-         status: event.target.value,
+         status: e.target.value
       })
+   }
+
+   onSubmit = () => {
+      console.log('status');
    }
 
    render(){
@@ -46,8 +57,24 @@ class News extends Component{
             }
             { !this.state.editMode &&
                <div style={{alignSelf:'center'}}>
-                  <input autoFocus={true} onBlur={this.deactivateEditMode} 
-                  value={this.state.status} onChange={this.onChangeStatus}></input>
+                  <Formik
+                   initialValues = {initialValues}
+                   validationSchema = {validate}
+                   onSubmit = {this.onSubmit}
+                   >
+                     {
+                        ({touched, errors}) => (
+                           <Form name = 'status'>
+                              <Field 
+                              name = 'status' 
+                              onBlur={this.deactivateEditMode} 
+                              value = {this.state.status} 
+                              onChange = {this.onChangeStatus}/>
+                              {touched.status && <div className ={styles.errors}>{errors.status}</div>}
+                           </Form>
+                        )
+                     }
+                  </Formik>
                </div>        
             } 
          </div>
