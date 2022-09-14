@@ -41,8 +41,8 @@ class News extends Component{
       })
    }
 
-   onSubmit = () => {
-      console.log('status');
+   onSubmit = (data) => {
+      console.log(data);
    }
 
    render(){

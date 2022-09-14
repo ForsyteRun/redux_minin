@@ -1,0 +1,20 @@
+.conteiner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 150px;
+}
+
+.conteinerRemember{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.inputTop {
+  margin: 10px;
+}
+
+input{
+  margin: 0;
+}
