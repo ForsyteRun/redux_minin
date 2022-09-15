@@ -1,46 +1,40 @@
-import { Formik } from "formik";
+import { Field, Formik , Form} from "formik";
 import React from "react";
 import style from './Auth.module.css';
-import { validate } from "./formik/validateSchema";
+import { validateAuth } from "./formik/validateSchema";
 
 const initialValue = {
   login: '',
-  password: ''
+  password: '', 
+  rememberMe: false,
 }
 
-const Auth = (props) => {
+const Auth = () => {
   return (
-    <div >   
       <Formik
         initialValues = {initialValue}
-        validationSchema = {validate}
-        onSubmit = {(login, password) => {
-          console.log(login, password)
-        }}>
-      {props => (
-          <form onSubmit={props.handleSubmit} className={style.conteiner}>
-            <input
-              type="text"
-              onChange={props.handleChange}
-              onBlur={props.handleBlur}
-              value='11'
-              name="login"
-            />
-              <input
-              type="text"
-              onChange={props.handleChange}
-              onBlur={props.handleBlur}
-              value='11'
-              name="password"
-            />
-            {/* {props.errors.name && <div id="feedback">{props.errors.name}</div>} */}
+        validationSchema = {validateAuth}
+        onSubmit = {(value) => console.log(value)}>
+      {(props) => (
+          <Form className={style.wrapper}>
+            <div className={style.conteiner}>
+              <Field
+                name="login"
+                placeholder="введите логин"
+              />
+              <Field
+                name="password"
+                placeholder="введите пароль"
+              />
+            </div>
+            <div className={style.rememderBox}>
+              <Field type = 'checkbox' name = 'rememberMe' id = 'rememberMe'/>
+              <span>remember me</span>
+            </div>
             <button type="submit">Submit</button>
-          </form>
+          </Form>
         )}
       </Formik>
-    </div>
-    
-    
   )
 }
 
