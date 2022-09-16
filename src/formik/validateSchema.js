@@ -11,7 +11,7 @@ export const validate = yup.object().shape({
 
 export const validateAuth = yup.object().shape({
    login: yup.string()
-   .required('Required'),
+   .required('required'),
    password: yup.string()
    .required('required'),
 })

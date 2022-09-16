@@ -12,8 +12,8 @@ const initialValue = {
         }
 
 const Auth = (props) => {
-    
-  const onSubmit = (values, actions) => {
+   
+    const onSubmit = (values, actions) => {
             console.log(values);
             props.enterAuthThunkCreater(values, actions)
           }
@@ -25,17 +25,21 @@ const Auth = (props) => {
           validationSchema = {validateAuth}
           onSubmit ={onSubmit}
         >
-        {({isSubmitting}) => (
+        {({isSubmitting, errors, touched}) => (
             <Form className={style.wrapper}>
               <div className={style.conteiner}>
-                <Field
+                <Field 
                   name="login"
                   placeholder="введите логин"
+                  className = {touched.login && errors.login && style.errorBorder}
                 />
+               {/* {errors.login && <div className={style.errorText}>{errors.login}</div>} */}
                 <Field
                   name="password"
                   placeholder="введите пароль"
+                  className = {touched.password && errors.password && style.errorBorder}
                 />
+                {/* {errors.password && <div className={style.errorText}>{errors.password}</div>} */}
               </div>
               <div className={style.rememderBox}>
                 <Field type = 'checkbox' name = 'rememberMe' id = 'rememberMe'/>
