@@ -1,9 +1,11 @@
-import { getAuth } from "../api/api";
+import { AuthAPI, getAuth } from "../api/api";
 
 let setAuth = 'SET_AUTH';
 
 let initialState = {
    login: null,
+   password: null, 
+   rememberMe: false,
    email: null,
    isLoading: false,
    isAuth: false,
@@ -16,7 +18,7 @@ let authReduser = (state = initialState, action) => {
             ...state,
             ...action,
             isAuth: true,
-         }     
+         }
       default:
          return state;
    }
@@ -24,11 +26,12 @@ let authReduser = (state = initialState, action) => {
 
 export default authReduser;
 
-export let authAC = (login, email) => {
+export let authAC = (login, password, rememberMe) => {
    return{
       type: setAuth,
-      login: login,
-      email: email,
+      login, 
+      password, 
+      rememberMe,
    }
 }
 
@@ -45,3 +48,13 @@ export const getHeaderThunkCreater = () => {
    }
 }
 
+export const enterAuthThunkCreater = ({login, password, rememberMe}, actions) => {
+   return (dispatch) => {
+      AuthAPI.enterAuth(login, password, rememberMe)
+      .then( res => {
+         const{login, password, rememberMe} = res.data;
+         dispatch(authAC(login, password, rememberMe))
+         actions.setSubmitting(false);
+      })
+   }
+}

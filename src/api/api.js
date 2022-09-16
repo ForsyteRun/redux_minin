@@ -54,3 +54,12 @@ export const profileAPI = {
       }).then(res =>res.data)
    },
 }
+
+export const AuthAPI = {
+   enterAuth(login, password, rememberMe){
+      return instance.post('auth/', {
+         login, 
+         password,
+         rememberMe})
+   }
+}
