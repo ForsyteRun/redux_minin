@@ -1,6 +1,7 @@
 import { Field, Formik , Form} from "formik";
 import React from "react";
 import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 import style from './Auth.module.css';
 import { validateAuth } from "./formik/validateSchema";
 import { enterAuthThunkCreater } from "./redux/authReduser";
@@ -12,9 +13,9 @@ const initialValue = {
         }
 
 const Auth = (props) => {
-   
+    if(props.data.isAuth) return <Navigate to = '/status'/>
+    
     const onSubmit = (values, actions) => {
-            console.log(values);
             props.enterAuthThunkCreater(values, actions)
           }
 
@@ -33,13 +34,11 @@ const Auth = (props) => {
                   placeholder="введите логин"
                   className = {touched.login && errors.login && style.errorBorder}
                 />
-               {/* {errors.login && <div className={style.errorText}>{errors.login}</div>} */}
                 <Field
                   name="password"
                   placeholder="введите пароль"
                   className = {touched.password && errors.password && style.errorBorder}
                 />
-                {/* {errors.password && <div className={style.errorText}>{errors.password}</div>} */}
               </div>
               <div className={style.rememderBox}>
                 <Field type = 'checkbox' name = 'rememberMe' id = 'rememberMe'/>

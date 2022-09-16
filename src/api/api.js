@@ -61,5 +61,8 @@ export const AuthAPI = {
          login, 
          password,
          rememberMe})
-   }
+   },
+   outAuth(){
+      return instance.delete('auth/1')
+   },
 }

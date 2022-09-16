@@ -17,7 +17,6 @@ let authReduser = (state = initialState, action) => {
          return {
             ...state,
             ...action,
-            isAuth: true,
          }
       default:
          return state;
@@ -26,12 +25,13 @@ let authReduser = (state = initialState, action) => {
 
 export default authReduser;
 
-export let authAC = (login, password, rememberMe) => {
+export let authAC = (login, password, rememberMe, isAuth) => {
    return{
       type: setAuth,
       login, 
       password, 
       rememberMe,
+      isAuth,
    }
 }
 
@@ -53,8 +53,18 @@ export const enterAuthThunkCreater = ({login, password, rememberMe}, actions) =>
       AuthAPI.enterAuth(login, password, rememberMe)
       .then( res => {
          const{login, password, rememberMe} = res.data;
-         dispatch(authAC(login, password, rememberMe))
+         dispatch(authAC(login, password, rememberMe, true))
          actions.setSubmitting(false);
       })
+   }
+}
+
+export const outAuthThunkCreater = () => {
+   return (dispatch) => {
+      AuthAPI.outAuth()
+      .then( () => {
+         dispatch(authAC(null, null, false, false))
+      })
+      .catch(console.log('No id=1'))
    }
 }

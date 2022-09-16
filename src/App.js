@@ -10,8 +10,6 @@ import MusicConteiner from './MusicConteiner';
 import RegisterConteiner from './RegisterConteiner';
 import Dashboard from './Dashboard';
 import Preferenses from './Preferenses';
-import Register from './Register';
-import react, { useState } from 'react';
 
 function App(props) {
 
