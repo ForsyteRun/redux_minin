@@ -9,6 +9,7 @@ import statusReduser from './redux/statusReduser';
 import profileReduser from './redux/profileReduser';
 import authReduser from './redux/authReduser';
 import { configureStore } from '@reduxjs/toolkit';
+import initialReducer from './redux/initialReducer';
 
 let store = configureStore({
   reducer:{
@@ -16,6 +17,7 @@ let store = configureStore({
     usersPage: statusReduser,
     profile:profileReduser,
     auth: authReduser,
+    init: initialReducer,
   }
 })
 

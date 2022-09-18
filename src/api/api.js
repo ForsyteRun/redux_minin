@@ -28,8 +28,8 @@ export const getUserProfile = (match) => {
    .then(response => response.data)
 }
 
-export const getAuth = () => {
-   return  profileAPI.getUserProfile()
+export const authMe = () => {
+   return instance.get('/auth/1')
 }
 
 export const profileAPI = {

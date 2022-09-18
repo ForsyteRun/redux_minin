@@ -1,4 +1,4 @@
-import { AuthAPI, getAuth } from "../api/api";
+import { AuthAPI, authMe} from "../api/api";
 
 let setAuth = 'SET_AUTH';
 
@@ -37,12 +37,10 @@ export let authAC = (login, password, rememberMe, isAuth) => {
 
 export const getHeaderThunkCreater = () => {
    return (dispatch) => {
-      getAuth()
+      authMe()
       .then(response => {
-        if(response.resultCode === true){
-          let {login, email} = response;
-          dispatch(authAC(login, email))
-        }
+         const{login, password, rememberMe} = response.data;
+        dispatch(authAC(login, password, rememberMe, true))
       })
       .catch(new Error('error getHeaderThunkCreater'))
    }

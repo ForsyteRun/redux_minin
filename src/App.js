@@ -10,16 +10,22 @@ import MusicConteiner from './MusicConteiner';
 import RegisterConteiner from './RegisterConteiner';
 import Dashboard from './Dashboard';
 import Preferenses from './Preferenses';
+import { Component } from 'react';
+import {getInitialThunkCreater} from './redux/initialReducer';
 
-function App(props) {
+class App extends Component {
+  componentDidMount(){
+    this.props.getInitialThunkCreater()
+  }
 
-  return (
+  render(){
+    return (
     <div>
       <HeaderConteiner/>
       <div className={styles.App}>  
-        <button onClick={props.getPlus}>+</button>
-        <button onClick={props.getMinus}>-</button>
-        <div>Результат:{props.result}</div>
+        <button onClick={this.props.getInk}>+</button>
+        <button onClick={this.props.getDic}>-</button>
+        <div>Результат:{this.props.result}</div>
         <NavLink to='/status' style={{margin:'20px'}}>Status</NavLink>
         <NavLink to='/music'>Music</NavLink>
         <NavLink to='/register' style={{margin: '20px'}}>Register</NavLink>
@@ -35,7 +41,7 @@ function App(props) {
       </div>
     </div>
   );
-}
+}}
 
 let mapStateToProps = (state) => {
   return {
@@ -43,15 +49,4 @@ let mapStateToProps = (state) => {
   }
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    getPlus: () => {
-      dispatch(getInk())
-    },
-    getMinus: () => {
-      dispatch(getDic())
-    },
-  } 
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, {getInk, getDic, getInitialThunkCreater})(App)
