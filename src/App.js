@@ -12,13 +12,24 @@ import Dashboard from './Dashboard';
 import Preferenses from './Preferenses';
 import { Component } from 'react';
 import {getInitialThunkCreater} from './redux/initialReducer';
+import Preloader from './Preloader';
 
 class App extends Component {
   componentDidMount(){
     this.props.getInitialThunkCreater()
+
+    console.log(this.props.isInitial);
   }
 
+  
+
+
   render(){
+    if(!this.props.isInitial){
+      return 7777
+    }
+
+    console.log(this.props.isInitial);
     return (
     <div>
       <HeaderConteiner/>
@@ -46,6 +57,7 @@ class App extends Component {
 let mapStateToProps = (state) => {
   return {
     result: state.num.num,
+    isInitial: state.init.isInitial,
   }
 };
 

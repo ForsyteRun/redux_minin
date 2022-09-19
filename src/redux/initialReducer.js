@@ -28,6 +28,7 @@ export let initialAC = () => {
 
 export const getInitialThunkCreater = () => {
    return (dispatch) => {
-      dispatch(getHeaderThunkCreater())
+      let promise = dispatch(getHeaderThunkCreater())
+      Promise.all([promise]).then(res => dispatch(initialAC()))
    }
 }
