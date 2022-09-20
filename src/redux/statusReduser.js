@@ -18,10 +18,12 @@ let initialState = {
    isLoading: false,
    isFollowingProgress: [],
    status: 'enter status',
+   fake: 5,
 }
 
 let statusReduser = (state = initialState, action) => {
    switch (action.type) {
+      case 'fake': return {...state, fake: action.fake + 1}
       case follow:
          return {
             ...state,

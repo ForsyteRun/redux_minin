@@ -17,19 +17,13 @@ import Preloader from './Preloader';
 class App extends Component {
   componentDidMount(){
     this.props.getInitialThunkCreater()
-
-    console.log(this.props.isInitial);
   }
-
-  
-
 
   render(){
     if(!this.props.isInitial){
       return 7777
     }
 
-    console.log(this.props.isInitial);
     return (
     <div>
       <HeaderConteiner/>

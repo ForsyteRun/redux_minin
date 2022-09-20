@@ -9,6 +9,7 @@ import {
   } from "./redux/statusReduser";
 import Status from './Status';
 import Preloader from "./Preloader";
+import { downReselect, downUsers } from "./redux/selectors";
 
 class StatusAPI extends Component{
   componentDidMount(){   
@@ -21,6 +22,8 @@ class StatusAPI extends Component{
   
 
   render(){
+  console.log('render')
+  
     return (
       <div>
       {this.props.isLoading ? <Preloader/> : null}
@@ -42,8 +45,9 @@ class StatusAPI extends Component{
 }
 
  let mapStateToProps = (state) => {
+  console.log('mstp');
     return {
-      dataUsers:state.usersPage.users,
+      dataUsers:downReselect(state),
       pageSize: state.usersPage.pageSize,
       totalUserCount: state.usersPage.totalUserCount,
       currentPageData: state.usersPage.currentPage,
