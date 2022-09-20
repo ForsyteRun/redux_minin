@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
 import News from "./News";
+import NewsHooks from "./NewsHooks";
 import {getNewsThunkCreater,
         setNewsThunkCreater,
         updateNewsThunkCreater} from './redux/statusReduser';
@@ -15,6 +16,7 @@ class NewsConteiner extends Component{
       return (
          <div>
             <News {...this.props} onChangeStatus = {this.onChangeStatus}/>
+            <NewsHooks {...this.props} onChangeStatus = {this.onChangeStatus}/>
          </div>
       )
    }

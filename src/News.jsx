@@ -32,7 +32,7 @@ class News extends Component{
          editMode: true,
       })
       this.props.updateNewsThunkCreater(this.state.status);
-      this.onSubmit()
+      // this.onSubmit()
    }
 
    onChangeStatus = (e) => {
