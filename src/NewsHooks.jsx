@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { validate } from "./formik/validateSchema";
 import styles from './News.module.css';
 
@@ -7,9 +8,13 @@ const initialValues = {
    status: '22'
 };
 export const NewsHooks = (props) => {
-
+   
    const [editMode, setEditMode] = useState(true);
-   const [status, setStatus] = useState(props.status)
+   const [status, setStatus] = useState(props.status);
+   
+   useEffect(() => {
+      setStatus(props.status)
+   }, [props.status])
 
    const activeEditMode = () => {
       setEditMode(false)
