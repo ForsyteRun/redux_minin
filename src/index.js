@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import rootReducer from './redux/redusers';
 import { Provider } from 'react-redux';
 import { BrowserRouter} from 'react-router-dom';
 import statusReduser from './redux/statusReduser';
@@ -13,7 +12,6 @@ import initialReducer from './redux/initialReducer';
 
 let store = configureStore({
   reducer:{
-    num:rootReducer,
     usersPage: statusReduser,
     profile:profileReduser,
     auth: authReduser,
@@ -37,5 +35,3 @@ let store = configureStore({
     );
 
 window.store = store;
-
-

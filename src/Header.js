@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, NavLink } from "react-router-dom";
 import style from './Header.module.css';
 
-const Header = (props) => {
+const Header = React.memo (props => {
 
   const redirAuth = () => {
     props.outAuthThunkCreater();
@@ -15,6 +15,6 @@ const Header = (props) => {
       </span>
     </div>
   )
-}
+})
 
 export default Header;

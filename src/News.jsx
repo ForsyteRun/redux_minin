@@ -1,12 +1,12 @@
 import { Field, Form, Formik } from "formik";
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { validate } from "./formik/validateSchema";
 import styles from './News.module.css';
 
 const initialValues = {
    status: '22'
 };
-class News extends Component{
+class News extends PureComponent{
 
    state = {
       editMode: true,
@@ -46,6 +46,9 @@ class News extends Component{
    }
 
    render(){
+
+      console.log('render');
+
       return(
          <div>
             { this.state.editMode &&

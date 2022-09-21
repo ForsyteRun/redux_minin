@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from 'react';
 import styles from'./App.module.css';
-import { getDic, getInk } from './redux/redusers';
 import {connect} from 'react-redux';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import StatusAPI from './StatusAPI';
@@ -10,27 +10,35 @@ import MusicConteiner from './MusicConteiner';
 import RegisterConteiner from './RegisterConteiner';
 import Dashboard from './Dashboard';
 import Preferenses from './Preferenses';
-import { Component } from 'react';
 import {getInitialThunkCreater} from './redux/initialReducer';
-import Preloader from './Preloader';
 
-class App extends Component {
-  componentDidMount(){
-    this.props.getInitialThunkCreater()
-  }
+const App = (props) => {
+  
+  const [num, setNum] = useState(0);
 
-  render(){
-    if(!this.props.isInitial){
+  const increment = () => {
+    setNum(num + 1)
+  };
+
+  const dicrement = () => {
+    setNum(num - 1)
+  };
+  
+  useEffect(() => {
+    props.getInitialThunkCreater();
+  })
+  
+  if(!props.isInitial){
       return 7777
-    }
+  }
 
     return (
     <div>
       <HeaderConteiner/>
       <div className={styles.App}>  
-        <button onClick={this.props.getInk}>+</button>
-        <button onClick={this.props.getDic}>-</button>
-        <div>Результат:{this.props.result}</div>
+        <button onClick={increment}>+</button>
+        <button onClick={dicrement}>-</button>
+        <div>Результат:{num}</div>
         <NavLink to='/status' style={{margin:'20px'}}>Status</NavLink>
         <NavLink to='/music'>Music</NavLink>
         <NavLink to='/register' style={{margin: '20px'}}>Register</NavLink>
@@ -46,13 +54,12 @@ class App extends Component {
       </div>
     </div>
   );
-}}
+}
 
 let mapStateToProps = (state) => {
   return {
-    result: state.num.num,
     isInitial: state.init.isInitial,
   }
 };
 
-export default connect(mapStateToProps, {getInk, getDic, getInitialThunkCreater})(App)
+export default connect(mapStateToProps, {getInitialThunkCreater})(App)

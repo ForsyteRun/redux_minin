@@ -9,7 +9,7 @@ class HeaderConteiner extends Component {
     console.log('render');
     return <Header {...this.props}/>
   }
-}
+};
 
 let mapStateToProps = (state) => {
   return {
@@ -17,6 +17,6 @@ let mapStateToProps = (state) => {
     isAuth: getIsAuth(state),
     email: getEmail(state),
   }
-}
+};
 
 export default  connect(mapStateToProps, {outAuthThunkCreater})(HeaderConteiner);
