@@ -1,6 +1,6 @@
 import { AuthAPI, authMe} from "../api/api";
 
-let setAuth = 'SET_AUTH';
+let setAuth = 'authReduser/SET_AUTH';
 
 let initialState = {
    login: null,

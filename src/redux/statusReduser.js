@@ -1,14 +1,14 @@
 import { getUsersApi, profileAPI } from "../api/api";
 
-let follow = 'FOLLOW';
-let unfollow = 'UNFOLLOW';
-let set_Users = 'SETUSERS';
-let current_Page = 'CURRENT_PAGE';
-let toggle_Loading = 'toggle_loading';
-let total_pages = 'total_pages';
-let is_Following_Progres = 'IS_FOLLOWING_PROGRESS';
-let get_Status = 'GET_STATUS';
-let update_Status = 'UPDATE_STATUS';
+let follow = 'minin/statusReduser/FOLLOW';
+let unfollow = 'minin/statusReduser/UNFOLLOW';
+let set_Users = 'minin/statusReduser/SETUSERS';
+let current_Page = 'minin/statusReduser/CURRENT_PAGE';
+let toggle_Loading = 'minin/statusReduser/toggle_loading';
+let total_pages = 'minin/statusReduser/total_pages';
+let is_Following_Progres = 'minin/statusReduser/IS_FOLLOWING_PROGRESS';
+let get_Status = 'minin/statusReduser/GET_STATUS';
+let update_Status = 'minin/statusReduser/UPDATE_STATUS';
 
 let initialState = {
    users: [],
@@ -21,6 +21,7 @@ let initialState = {
    fake: 5,
 }
 
+//reduser - logic of statusPage
 let statusReduser = (state = initialState, action) => {
    switch (action.type) {
       case 'fake': return {...state, fake: action.fake + 1}
@@ -97,6 +98,7 @@ let statusReduser = (state = initialState, action) => {
 
 export default statusReduser;
 
+//action-creaters
 export let followAC = (userId) => {
    return {
       type: follow,
@@ -162,45 +164,36 @@ const updateStatus = (reStatus) => {
    }
 }
 
-export const getUsersThunkCreater = (pageSize, currentPage) => {
-   return (dispath) => {
+//thunk-creaters
+export const getUsersThunkCreater = (pageSize, currentPage) => async (dispath) => {
       dispath(toggleLoading(true))    
-      getUsersApi(pageSize, currentPage).then(response => {
-               dispath(setUsers(response.data));
-               dispath(totalPages((response.headers['x-total-count'])));
+      let res = await getUsersApi(pageSize, currentPage)
+               dispath(setUsers(res.data));
+               dispath(totalPages((res.headers['x-total-count'])));
                dispath(toggleLoading(false))      
-            })
-}};
+};
 
-export const getPageChangeThunkCreater = (pageSize, nextPage) => {
-   return (dispatch) => {
+export const getPageChangeThunkCreater = (pageSize, nextPage) => async (dispatch) => {
       dispatch(currentPage(nextPage))
       dispatch(toggleLoading(true))
-      getUsersApi(pageSize, nextPage).then(response =>{ 
-        dispatch(setUsers(response.data))
-        dispatch(toggleLoading(false))
-      })    
-    }
-   }
-
-export const getNewsThunkCreater = () => {
-   return (dispatch) => {
-      profileAPI.getStatus().then(res=>{
-         dispatch(getStatus(res.data))
-      });
       
-   }
-}
+      let res = await getUsersApi(pageSize, nextPage) 
+      dispatch(setUsers(res.data))
+      dispatch(toggleLoading(false))
+};    
+    
 
-export const setNewsThunkCreater = (status) => {
-   return (dispatch) => {
-      profileAPI.setStatus(status)
+export const getNewsThunkCreater = () => async (dispatch) => {
+      let res = await profileAPI.getStatus()
+      dispatch(getStatus(res.data))
    }
-}
 
-export const updateNewsThunkCreater = (reStatus) => {
-   return (dispatch) => {
-       profileAPI.updateStatus(reStatus)
-       .then(res => dispatch(updateStatus(res.data.status)))
+
+export const setNewsThunkCreater = (status) => async () => {
+      await profileAPI.setStatus(status)
    }
-}
+
+export const updateNewsThunkCreater = (reStatus) => async (dispatch) => {
+      let res = await profileAPI.updateStatus(reStatus)
+      dispatch(updateStatus(res.data.status))
+   }

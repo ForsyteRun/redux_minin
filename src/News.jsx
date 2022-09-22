@@ -19,36 +19,32 @@ class News extends PureComponent{
             status:  this.props.states
          })
       }
-   }
+   };
 
    activeEditMode = () => {
       this.setState ({
          editMode: false,
       })
-   }
+   };
 
    deactivateEditMode = () => {
       this.setState({
          editMode: true,
       })
       this.props.updateNewsThunkCreater(this.state.status);
-      // this.onSubmit()
-   }
+   };
 
    onChangeStatus = (e) => {
       this.setState({
          status: e.target.value
       })
-   }
+   };
 
    onSubmit = (data) => {
       console.log(data);
-   }
+   };
 
    render(){
-
-      console.log('render');
-
       return(
          <div>
             { this.state.editMode &&
