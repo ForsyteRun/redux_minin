@@ -1,6 +1,6 @@
 import { getHeaderThunkCreater } from "./authReduser";
 
-let isInitial = 'IS_INITIAL';
+let isInitial = 'minin/initialReduser/IS_INITIAL';
 
 let initialState = {
    isInitial: false,
@@ -26,9 +26,7 @@ export let initialAC = () => {
    }
 }
 
-export const getInitialThunkCreater = () => {
-   return (dispatch) => {
+export const getInitialThunkCreater = () => async (dispatch) => {
       let promise = dispatch(getHeaderThunkCreater())
-      Promise.all([promise]).then(res => dispatch(initialAC()))
+      Promise.all([promise]).then(() => dispatch(initialAC()))
    }
-}

@@ -1,6 +1,6 @@
 import { AuthAPI, authMe} from "../api/api";
 
-let setAuth = 'authReduser/SET_AUTH';
+let setAuth = 'minin/authReduser/SET_AUTH';
 
 let initialState = {
    login: null,
@@ -35,34 +35,21 @@ export let authAC = (login, password, rememberMe, isAuth) => {
    }
 }
 
-export const getHeaderThunkCreater = () => {
-   return (dispatch) => {
-      authMe()
-      .then(response => {
-         const{login, password, rememberMe} = response.data;
-        dispatch(authAC(login, password, rememberMe, true))
-      })
-      .catch(new Error('error getHeaderThunkCreater'))
-   }
-}
+export const getHeaderThunkCreater = () => async (dispatch) => {
+      let res = await authMe()
+      const{login, password, rememberMe} = res.data;
+      dispatch(authAC(login, password, rememberMe, true))
+};
 
-export const enterAuthThunkCreater = ({login, password, rememberMe}, actions) => {
-   return (dispatch) => {
-      AuthAPI.enterAuth(login, password, rememberMe)
-      .then( res => {
+export const enterAuthThunkCreater = ({login, password, rememberMe}, actions) => async (dispatch) => {
+      let res = await AuthAPI.enterAuth(login, password, rememberMe)
          const{login, password, rememberMe} = res.data;
          dispatch(authAC(login, password, rememberMe, true))
          actions.setSubmitting(false);
-      })
-   }
-}
+};
 
-export const outAuthThunkCreater = () => {
-   return (dispatch) => {
-      AuthAPI.outAuth()
-      .then( () => {
-         dispatch(authAC(null, null, false, false))
-      })
-      .catch(console.log('No id=1'))
-   }
-}
+
+export const outAuthThunkCreater = () => async (dispatch) => {
+      await AuthAPI.outAuth()
+      dispatch(authAC(null, null, false, false))
+};

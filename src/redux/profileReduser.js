@@ -1,6 +1,6 @@
 import { getUserProfile } from "../api/api";
 
-let set_Profile = 'SET_PROFILE';
+let set_Profile = 'minin/profileReduser/SET_PROFILE';
 
 let initialState = {
    userData: 6,
@@ -28,14 +28,9 @@ export let setProfileAC = (data) => {
    }
 }
 
-export const getUserProfileThunkCreator = (match) => {
-   return (dispatch) => {
-      getUserProfile(match)
-      .then(response => {
-          dispatch(setProfileAC(response))
-      })
-      .catch(new Error('Error'))
-   }
-}
+export const getUserProfileThunkCreator = (match) => async (dispatch) => {
+      let res = await getUserProfile(match)
+          dispatch(setProfileAC(res))
+};
 
  
