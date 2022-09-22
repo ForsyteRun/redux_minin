@@ -21,12 +21,12 @@ let initialReducer = (state = initialState, action) => {
 export default initialReducer;
 
 export let initialAC = () => {
-   return{
+   return {
       type: isInitial,
    }
-}
+};
 
 export const getInitialThunkCreater = () => async (dispatch) => {
-      let promise = dispatch(getHeaderThunkCreater())
-      Promise.all([promise]).then(() => dispatch(initialAC()))
-   }
+   dispatch(await getHeaderThunkCreater())
+   dispatch(initialAC());
+};

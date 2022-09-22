@@ -1,16 +1,16 @@
 import React from "react";
 import Preloader from "./Preloader";
 
-let Profile = (props) => {
+let Profile = ({data}) => {
 
-  if (!props.data){
+  if (!data){
     return <Preloader/>
   }
 
   return (
     <div>
-      <div>{props.data.userData.name}</div>
-      <div>{props.data.userData.email}</div>
+      <div>{data.userData.name}</div>
+      <div>{data.userData.email}</div>
     </div>
   )
 }

@@ -7,14 +7,14 @@ import styles from './News.module.css';
 const initialValues = {
    status: '22'
 };
-export const NewsHooks = (props) => {
-   
+
+export const NewsHooks = ({updateNewsThunkCreater, status}) => {
    const [editMode, setEditMode] = useState(true);
-   const [status, setStatus] = useState(props.status);
+   const [newStatus, setStatus] = useState(status);
    
    useEffect(() => {
-      setStatus(props.status)
-   }, [props.status])
+      setStatus(status)
+   }, [status])
 
    const activeEditMode = () => {
       setEditMode(false)
@@ -22,8 +22,7 @@ export const NewsHooks = (props) => {
 
    const deactivateEditMode = () => {
       setEditMode(true);
-      props.updateNewsThunkCreater(status);
-      // onSubmit()
+      updateNewsThunkCreater(newStatus);
    };
 
    const onChangeStatus = (e) => {
@@ -35,7 +34,7 @@ export const NewsHooks = (props) => {
             {editMode &&
                <div>
                   <span onDoubleClick={activeEditMode}>
-                     {props.status}
+                     {status}
                   </span>
                </div>
             }
@@ -52,7 +51,7 @@ export const NewsHooks = (props) => {
                                  name='status'
                                  onBlur={deactivateEditMode} 
                                  onChange = {onChangeStatus}
-                                 value ={status}
+                                 value ={newStatus}
                                />
                               {touched.status && <div className={styles.errors}>{errors.status}</div>}
                            </Form>

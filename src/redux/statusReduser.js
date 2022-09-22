@@ -1,4 +1,5 @@
 import { getUsersApi, profileAPI } from "../api/api";
+import { followUnFollowHelper } from "../utils/reduserHelper";
 
 let follow = 'minin/statusReduser/FOLLOW';
 let unfollow = 'minin/statusReduser/UNFOLLOW';
@@ -24,29 +25,20 @@ let initialState = {
 //reduser - logic of statusPage
 let statusReduser = (state = initialState, action) => {
    switch (action.type) {
-      case 'fake': return {...state, fake: action.fake + 1}
       case follow:
          return {
             ...state,
-            users: state.users.map(el => {
-               if(el.id === action.userId){
-                  return {...el, fallowed: true}
-               } return el;
-            })
+            users: followUnFollowHelper(state.users, action.userId, 'id', true)
          }
 
       case unfollow:
-            return {
-               ...state, 
-               users: state.users.map(el => {
-                  if(el.id === action.userId){
-                     return {...el, fallowed: false}
-                  } return el;
-               })
+         return {
+            ...state,
+            users: followUnFollowHelper(state.users, action.userId, 'id', false)
          }
       case set_Users:
          return {
-            ...state, 
+            ...state,
             users: [...action.users],
          }
 
@@ -60,33 +52,33 @@ let statusReduser = (state = initialState, action) => {
          return {
             ...state,
             totalUserCount: action.numPages,
-         }  
+         }
 
       case toggle_Loading:
          return {
             ...state,
             isLoading: action.isLoading,
-         }    
+         }
 
       case is_Following_Progres:
          return {
-            ...state, 
-            isFollowingProgress: action.isFollowBoolean 
-                               ? [...state.isFollowingProgress, action.id] 
-                               : state.isFollowingProgress.filter(id => id !== action.id),
+            ...state,
+            isFollowingProgress: action.isFollowBoolean
+               ? [...state.isFollowingProgress, action.id]
+               : state.isFollowingProgress.filter(id => id !== action.id),
          }
 
       case get_Status:
-      let i;   
-      for (i of action.status)
-         return {
-            ...state,
-            status: i.status
-         }
+         let i;
+         for (i of action.status)
+            return {
+               ...state,
+               status: i.status
+            }
 
       case update_Status:
          return {
-            ...state, 
+            ...state,
             status: action.reStatus
          }
 
@@ -104,18 +96,18 @@ export let followAC = (userId) => {
       type: follow,
       userId,
    }
-        
+
 };
 
 export let unFollowAC = (userId) => {
-   return{
+   return {
       type: unfollow,
       userId,
    }
 };
 
 export let setUsers = (users) => {
-   return{
+   return {
       type: set_Users,
       users,
    }
@@ -166,34 +158,34 @@ const updateStatus = (reStatus) => {
 
 //thunk-creaters
 export const getUsersThunkCreater = (pageSize, currentPage) => async (dispath) => {
-      dispath(toggleLoading(true))    
-      let res = await getUsersApi(pageSize, currentPage)
-               dispath(setUsers(res.data));
-               dispath(totalPages((res.headers['x-total-count'])));
-               dispath(toggleLoading(false))      
+   dispath(toggleLoading(true))
+   let res = await getUsersApi(pageSize, currentPage)
+   dispath(setUsers(res.data));
+   dispath(totalPages((res.headers['x-total-count'])));
+   dispath(toggleLoading(false))
 };
 
 export const getPageChangeThunkCreater = (pageSize, nextPage) => async (dispatch) => {
-      dispatch(currentPage(nextPage))
-      dispatch(toggleLoading(true))
-      
-      let res = await getUsersApi(pageSize, nextPage) 
-      dispatch(setUsers(res.data))
-      dispatch(toggleLoading(false))
-};    
-    
+   dispatch(currentPage(nextPage))
+   dispatch(toggleLoading(true))
+
+   let res = await getUsersApi(pageSize, nextPage)
+   dispatch(setUsers(res.data))
+   dispatch(toggleLoading(false))
+};
+
 
 export const getNewsThunkCreater = () => async (dispatch) => {
-      let res = await profileAPI.getStatus()
-      dispatch(getStatus(res.data))
-   }
+   let res = await profileAPI.getStatus()
+   dispatch(getStatus(res.data))
+}
 
 
 export const setNewsThunkCreater = (status) => async () => {
-      await profileAPI.setStatus(status)
-   }
+   await profileAPI.setStatus(status)
+}
 
 export const updateNewsThunkCreater = (reStatus) => async (dispatch) => {
-      let res = await profileAPI.updateStatus(reStatus)
-      dispatch(updateStatus(res.data.status))
-   }
+   let res = await profileAPI.updateStatus(reStatus)
+   dispatch(updateStatus(res.data.status))
+}

@@ -16,6 +16,7 @@ const Auth = (props) => {
     if(props.data.isAuth) return <Navigate to = '/status'/>
     
     const onSubmit = (values, actions) => {
+      debugger;
             props.enterAuthThunkCreater(values, actions)
           }
 

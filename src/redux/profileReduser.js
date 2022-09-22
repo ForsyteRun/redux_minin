@@ -7,13 +7,13 @@ let initialState = {
 }
 
 let profileReduser = (state = initialState, action) => {
-     switch (action.type) {
+   switch (action.type) {
       case set_Profile:
          return {
             ...state,
             userData: action.data
          }
-   
+
       default:
          return state;
    }
@@ -29,8 +29,7 @@ export let setProfileAC = (data) => {
 }
 
 export const getUserProfileThunkCreator = (match) => async (dispatch) => {
-      let res = await getUserProfile(match)
-          dispatch(setProfileAC(res))
+   let res = await getUserProfile(match)
+   dispatch(setProfileAC(res))
 };
 
- 

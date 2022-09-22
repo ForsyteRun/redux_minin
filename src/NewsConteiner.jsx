@@ -15,7 +15,7 @@ class NewsConteiner extends Component{
    render(){
       return (
          <div>
-            <News {...this.props} onChangeStatus = {this.onChangeStatus}/>
+            {/* <News {...this.props} onChangeStatus = {this.onChangeStatus}/> */}
             <NewsHooks {...this.props} onChangeStatus = {this.onChangeStatus}/>
          </div>
       )

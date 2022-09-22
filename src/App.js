@@ -12,7 +12,7 @@ import Dashboard from './Dashboard';
 import Preferenses from './Preferenses';
 import {getInitialThunkCreater} from './redux/initialReducer';
 
-const App = (props) => {
+const App = ({getInitialThunkCreater, isInitial}) => {
   
   const [num, setNum] = useState(0);
 
@@ -25,11 +25,11 @@ const App = (props) => {
   };
   
   useEffect(() => {
-    props.getInitialThunkCreater();
+    getInitialThunkCreater();
   })
   
-  if(!props.isInitial){
-      return 7777
+  if(!isInitial){
+      return 777788889999;
   }
 
     return (
