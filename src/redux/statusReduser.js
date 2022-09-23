@@ -1,4 +1,4 @@
-import { getUsersApi, profileAPI } from "../api/api";
+import { getFollow, getUnFollow, getUsersApi, profileAPI } from "../api/api";
 import { followUnFollowHelper } from "../utils/reduserHelper";
 
 let follow = 'minin/statusReduser/FOLLOW';
@@ -188,4 +188,14 @@ export const setNewsThunkCreater = (status) => async () => {
 export const updateNewsThunkCreater = (reStatus) => async (dispatch) => {
    let res = await profileAPI.updateStatus(reStatus)
    dispatch(updateStatus(res.data.status))
+}
+
+export const getFollowThunkCreater = (userId) => async (dispatch) => {
+   await getFollow(userId)
+   dispatch(followAC(userId));
+};
+
+export const getUnFollowThunkCreater = (id) => async (dispatch) => {
+   await getUnFollow(id)
+   dispatch(unFollowAC(id))
 }

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
-import News from "./News";
 import NewsHooks from "./NewsHooks";
 import {getNewsThunkCreater,
         setNewsThunkCreater,
@@ -30,5 +29,3 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {getNewsThunkCreater,
     setNewsThunkCreater, updateNewsThunkCreater})(NewsConteiner)
-
-

@@ -15,10 +15,9 @@ export const getFollow = (id) => {
    .then(response => response.data)
 }
 
-export const getUnFollow = (id, url) => {
+export const getUnFollow = (id) => {
    return  instance.post('follow/',{
       id,
-      url,
       fallowed: true,       
     }).then(response => response.data)
 }

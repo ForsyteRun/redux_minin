@@ -14,7 +14,7 @@ class News extends PureComponent{
    };
 
    componentDidUpdate(prevProps, prevState){
-      if(prevProps.status != this.props.status){
+      if((prevProps.status || prevState.status) !== this.props.status){
          this.setState({
             status:  this.props.status
          })
@@ -40,10 +40,6 @@ class News extends PureComponent{
       })
    };
 
-   onSubmit = (data) => {
-      console.log(data);
-   };
-
    render(){
       return(
          <div>
@@ -59,7 +55,6 @@ class News extends PureComponent{
                   <Formik
                    initialValues = {initialValues}
                    validationSchema = {validate}
-                   onSubmit = {this.onSubmit}
                    >
                      {
                         ({touched, errors}) => (
@@ -68,7 +63,9 @@ class News extends PureComponent{
                               name = 'status' 
                               onBlur={this.deactivateEditMode} 
                               value = {this.state.status} 
-                              onChange = {this.onChangeStatus}/>
+                              onChange = {this.onChangeStatus}
+                              autoFocus = {true}
+                              />
                               {touched.status && <div className ={styles.errors}>{errors.status}</div>}
                            </Form>
                         )

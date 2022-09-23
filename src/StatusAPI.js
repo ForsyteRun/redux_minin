@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-   followAC, 
-   unFollowAC,   
+import {   
    isFollowing, 
    getUsersThunkCreater,
-   getPageChangeThunkCreater
+   getPageChangeThunkCreater,
+   getUnFollowThunkCreater,
+   getFollowThunkCreater
   } from "./redux/statusReduser";
 import Status from './Status';
 import Preloader from "./Preloader";
-import { downReselect, downUsers } from "./redux/selectors";
+import { downReselect } from "./redux/selectors";
 
 class StatusAPI extends Component{
+
   componentDidMount(){   
     this.props.getUsersThunkCreater(this.props.pageSize, this.props.currentPage)
   };
@@ -20,32 +21,17 @@ class StatusAPI extends Component{
     this.props.getPageChangeThunkCreater(this.props.pageSize, el)
   }
   
-
   render(){
-  console.log('render')
-  
     return (
       <div>
-      {this.props.isLoading ? <Preloader/> : null}
-        <Status pageSize ={this.props.pageSize}
-        totalUserCount = {this.props.totalUserCount}
-        dataUsers = {this.props.dataUsers}
-        currentPageData = {this.props.currentPageData}
-        follow = {this.props.followAC}
-        unFollow = {this.props.unFollowAC}
-        set_Users = {this.props.setUsers}
-        onPageChange = {this.onPageChange}
-        isFollowing = {this.props.isFollowing}
-        isFollowingData = {this.props.isFollowingData}
-        data = {'Enter any'}
-        />
+        {this.props.isLoading ? <Preloader/> : null}
+          <Status {...this.props} onPageChange = {this.onPageChange}/>
       </div>
     )
   };
 }
 
  let mapStateToProps = (state) => {
-  console.log('mstp');
     return {
       dataUsers:downReselect(state),
       pageSize: state.usersPage.pageSize,
@@ -57,6 +43,6 @@ class StatusAPI extends Component{
   }
 
 export default connect(mapStateToProps, {
-  followAC, unFollowAC, isFollowing,
+  isFollowing, getFollowThunkCreater, getUnFollowThunkCreater,
    getUsersThunkCreater, getPageChangeThunkCreater
 })(StatusAPI)
