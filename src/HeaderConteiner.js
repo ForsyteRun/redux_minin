@@ -6,7 +6,6 @@ import { getEmail, getIsAuth, getLogin } from "./redux/selectors";
 class HeaderConteiner extends Component {
 
   render() {
-    console.log('render');
     return <Header {...this.props}/>
   }
 };

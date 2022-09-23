@@ -13,7 +13,6 @@ export const getEmail = (state) => {
 };
 
 const downUsers = (state) => {
-   console.log(state.usersPage.users);
    return state.usersPage.users;
 };
 
