@@ -165,11 +165,11 @@ export const getUsersThunkCreater = (pageSize, currentPage) => async (dispath) =
    dispath(toggleLoading(false))
 };
 
-export const getPageChangeThunkCreater = (pageSize, nextPage) => async (dispatch) => {
-   dispatch(currentPage(nextPage))
+export const getPageChangeThunkCreater = (pageSize, page) => async (dispatch) => {
+   dispatch(currentPage(page))
    dispatch(toggleLoading(true))
 
-   let res = await getUsersApi(pageSize, nextPage)
+   let res = await getUsersApi(pageSize, page)
    dispatch(setUsers(res.data))
    dispatch(toggleLoading(false))
 };
