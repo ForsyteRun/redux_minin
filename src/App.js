@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 import Preferenses from './Preferenses';
 import { getInitialThunkCreater } from './redux/initialReducer';
 import Preloader from './Preloader';
+import MyProfileConteiner from './MyProfileConteiner';
 
 const MusicConteiner = lazy(() => import('./MusicConteiner.jsx'));
 const AuthConteiner = lazy(() => import('./AuthConteiner'));
@@ -42,8 +43,9 @@ const App = ({ getInitialThunkCreater, isInitial }) => {
         <button onClick={dicrement}>-</button>
         <div>Результат:{num}</div>
         <NavLink to='/status' style={{ margin: '20px' }}>Status</NavLink>
-        <NavLink to='/music'>Music</NavLink>
-        <NavLink to='/register' style={{ margin: '20px' }}>Register</NavLink>
+        <NavLink to='/register' style={{ margin: '20px' }}>Music</NavLink>
+        <NavLink to='/music' style={{ margin: '20px' }}>LogIn</NavLink>
+        <NavLink to='/myprofile'>My Profile</NavLink>
         <Routes>
           <Route path='/status' element={<StatusAPI />} />
           <Route path='/profile/:id' element={<ProfileConteiner />} />
@@ -55,6 +57,7 @@ const App = ({ getInitialThunkCreater, isInitial }) => {
             <Route path="/music" element={<MusicConteiner />} />
             <Route path='/auth' element={<AuthConteiner />} />
             <Route path='/register' element={<RegisterConteiner />} />
+            <Route path='/myprofile' element={<MyProfileConteiner/>} />
           </Routes>
         </Suspense>
       </div>

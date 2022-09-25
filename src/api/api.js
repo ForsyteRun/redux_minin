@@ -5,6 +5,9 @@ const instance = axios.create({
    baseURL: 'https://630f1ba6498924524a860c3f.mockapi.io/',
  });
 
+const samuraiInstance = axios.create({
+   baseURL: 'https://social-network.samuraijs.com/api/1.0/'
+});
 
 export const getUsersApi = (pageSize, currentPage) => {
    return axios.get(baseUrlHolder + `photos?_limit=${pageSize}&_page=${currentPage}`)
@@ -28,7 +31,7 @@ export const getUserProfile = (match) => {
 }
 
 export const authMe = () => {
-   return instance.get('/auth/1')
+   return samuraiInstance.get('auth/me');
 }
 
 export const profileAPI = {

@@ -36,9 +36,12 @@ export let authAC = (login, password, rememberMe, isAuth) => {
 };
 
 export const getHeaderThunkCreater = () => async (dispatch) => {
-   let res = await authMe()
-   const { login, password, rememberMe } = res.data;
-   dispatch(authAC(login, password, rememberMe, true))
+   let res = await authMe();
+   if(res.data.resultCode === 0){
+      const { login, password, rememberMe } = res.data.data;
+      dispatch(authAC(login, password, rememberMe, true))
+   } dispatch(authAC('not', 'not', 'not', false))
+
 };
 
 export const enterAuthThunkCreater = ({ login, password, rememberMe }, actions) => async (dispatch) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import style from './Status.module.css';
+import avatar from './../src/img/smile.jpg';
 
 let User = ({el, isFollowingData, isFollowing, getFollowThunkCreater}) => {
 
@@ -8,7 +9,7 @@ let User = ({el, isFollowingData, isFollowing, getFollowThunkCreater}) => {
         <div className = {style.content}>
             <div>
               <NavLink to = {'/profile/' + el.id}>
-                <img src={el.url} alt = 'coob' className = {style.img}/>
+                <img src={el.url && avatar} alt = 'coob' className = {style.img}/>
               </NavLink>
             </div>
             <div>
