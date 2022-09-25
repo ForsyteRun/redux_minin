@@ -198,4 +198,4 @@ export const getFollowThunkCreater = (userId) => async (dispatch) => {
 export const getUnFollowThunkCreater = (id) => async (dispatch) => {
    await getUnFollow(id)
    dispatch(unFollowAC(id))
-}
+} 

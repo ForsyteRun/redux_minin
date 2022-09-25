@@ -12,11 +12,9 @@ class AuthConteiner extends Component {
 }
 
 let mapStateToProps = (state) => {
-  console.log('msttp')
   return {
     data: state.auth,
   }
 }
-
 
 export default connect(mapStateToProps)(AuthConteiner);

@@ -17,7 +17,7 @@ const downUsers = (state) => {
 };
 
 export const downReselect = createSelector(downUsers, (users) => {
-  return users.filter(el => el.id>=2);
+  return users.filter(el => el.id >= 2);
 });
 
 
