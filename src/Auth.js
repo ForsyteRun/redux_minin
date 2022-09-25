@@ -13,10 +13,9 @@ const initialValue = {
         }
 
 const Auth = (props) => {
-    if(props.data.isAuth) return <Navigate to = '/status'/>
+    if(props.data.isAuth) return <Navigate to = '/myProfile'/>
     
     const onSubmit = (values, actions) => {
-      debugger;
             props.enterAuthThunkCreater(values, actions)
           }
 

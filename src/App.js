@@ -44,7 +44,7 @@ const App = ({ getInitialThunkCreater, isInitial }) => {
         <div>Результат:{num}</div>
         <NavLink to='/status' style={{ margin: '20px' }}>Status</NavLink>
         <NavLink to='/register' style={{ margin: '20px' }}>Music</NavLink>
-        <NavLink to='/music' style={{ margin: '20px' }}>LogIn</NavLink>
+        <NavLink to='/music' style={{ margin: '20px' }}>Login</NavLink>
         <NavLink to='/myprofile'>My Profile</NavLink>
         <Routes>
           <Route path='/status' element={<StatusAPI />} />

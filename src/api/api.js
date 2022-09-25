@@ -31,7 +31,7 @@ export const getUserProfile = (match) => {
 }
 
 export const authMe = () => {
-   return samuraiInstance.get('auth/me');
+   return samuraiInstance.get('auth/me', {withCredentials: true});
 }
 
 export const profileAPI = {
@@ -58,11 +58,12 @@ export const profileAPI = {
 }
 
 export const AuthAPI = {
-   enterAuth(login, password, rememberMe){
-      return instance.post('auth/', {
-         login, 
+   enterAuth(email, password, rememberMe){
+      return samuraiInstance.post('auth/login', {
+         email, 
          password,
-         rememberMe})
+         rememberMe},
+         {withCredentials: true})
    },
    outAuth(){
       return instance.delete('auth/1')

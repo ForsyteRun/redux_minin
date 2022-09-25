@@ -5,9 +5,7 @@ import { getHeaderThunkCreater } from './redux/authReduser';
 
 class MyProfileConteiner extends Component {
 
-  componentDidMount(){
-    this.props.getHeaderThunkCreater()
-  };
+  
 
   render() {
     return (
