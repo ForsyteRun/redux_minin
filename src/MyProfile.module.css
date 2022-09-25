@@ -1,0 +1,18 @@
+.conteiner {
+   position: relative;
+   display: flex;
+   max-width: 100%;
+   justify-content: center;
+   align-items: center;
+   margin: 20px 0;
+}
+
+.button {
+   position: absolute;
+   top: 80%;
+   left: 56%;
+   opacity: 20%;
+   border: none;
+   background-color: transparent;
+   font-size: 11px;
+}
