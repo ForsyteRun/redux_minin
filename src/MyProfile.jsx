@@ -4,8 +4,7 @@ import photo from './img/smile.jpg';
 import style from './MyProfile.module.css';
 import { Formik, Field, Form } from 'formik';
 
-const MyProfile = ({userAvatar, isAuth}) => {
-
+const MyProfile = ({userAvatar, isAuth, imageProfile}) => {
    // if (!props.isAuth) {
    //    return <Navigate to='/auth' />
    // };
@@ -17,7 +16,7 @@ const MyProfile = ({userAvatar, isAuth}) => {
    return (
       <div className={style.conteiner}>
          <div>
-            <img src={photo} style={{ width: '100px' }} />
+            <img src={imageProfile} style={{ width: '100px' }} />
          </div>
          <Formik
             initialValues={{imageUrl: ''}}

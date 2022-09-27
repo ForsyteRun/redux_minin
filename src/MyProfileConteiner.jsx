@@ -6,9 +6,9 @@ import { userAvatar } from './redux/profileReduser';
 
 class MyProfileConteiner extends Component {
 
-  componentDidMount(){
-      this.props.userAvatar()
-    };  
+  // componentDidMount(){
+  //     this.props.userAvatar()
+  //   };  
 
   render() {
     return (
@@ -22,6 +22,7 @@ class MyProfileConteiner extends Component {
 const mapStateToProps = (state) => {
   return{
     isAuth: state.auth.isAuth,
+    imageProfile: state.profile.imageProfile,
   }
 };
 

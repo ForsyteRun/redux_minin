@@ -1,9 +1,11 @@
 import { getUserProfile, profileAPI } from "../api/api";
 
 let set_Profile = 'minin/profileReduser/SET_PROFILE';
+let set_Img_Profile = 'minin/profileReduser/set_Img_Profile';
 
 let initialState = {
    userData: 6,
+   imageProfile: ''
 }
 
 let profileReduser = (state = initialState, action) => {
@@ -13,7 +15,10 @@ let profileReduser = (state = initialState, action) => {
             ...state,
             userData: action.data
          }
-
+      case set_Img_Profile:
+         return {
+            ...state, imageProfile: action.url
+         }
       default:
          return state;
    }
@@ -27,7 +32,14 @@ export let setProfileAC = (data) => {
       data: data,
 
    }
-}
+};
+
+let setImgProfile = (url) => {
+   return {
+      type: set_Img_Profile,
+      url,
+   }
+};
 
 export const getUserProfileThunkCreator = (match) => async (dispatch) => {
    let res = await getUserProfile(match)
@@ -36,5 +48,9 @@ export const getUserProfileThunkCreator = (match) => async (dispatch) => {
 
 export const userAvatar = (url) => async (dispatch) => {
    let res = await profileAPI.loadAvatar(url);
-   console.log(res.data);
-}
+   try {
+      dispatch(setImgProfile(res.data.image.big))
+   } catch (error) {
+      console.log('error userAvatar');
+   }
+};
