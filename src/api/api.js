@@ -55,7 +55,12 @@ export const profileAPI = {
          status:status,
       }).then(res =>res.data)
    },
-}
+
+   loadAvatar(url){
+      return axios.put('https://630f1ba6498924524a860c3f.mockapi.io/myProfile/1', 
+      {'image': {'big': url, 'small':''}})
+   }
+};
 
 export const AuthAPI = {
    enterAuth(email, password, rememberMe){

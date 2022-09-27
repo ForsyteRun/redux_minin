@@ -1,4 +1,4 @@
-import { getUserProfile } from "../api/api";
+import { getUserProfile, profileAPI } from "../api/api";
 
 let set_Profile = 'minin/profileReduser/SET_PROFILE';
 
@@ -25,6 +25,7 @@ export let setProfileAC = (data) => {
    return {
       type: set_Profile,
       data: data,
+
    }
 }
 
@@ -33,3 +34,7 @@ export const getUserProfileThunkCreator = (match) => async (dispatch) => {
    dispatch(setProfileAC(res))
 };
 
+export const userAvatar = (url) => async (dispatch) => {
+   let res = await profileAPI.loadAvatar(url);
+   console.log(res.data);
+}

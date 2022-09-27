@@ -2,15 +2,18 @@ import { connect } from "react-redux";
 import { Component } from "react";
 import MyProfile from "./MyProfile";
 import { getHeaderThunkCreater } from './redux/authReduser';
+import { userAvatar } from './redux/profileReduser';
 
 class MyProfileConteiner extends Component {
 
-  
+  componentDidMount(){
+      this.props.userAvatar()
+    };  
 
   render() {
     return (
       <div>
-        <MyProfile isAuth = {this.props.isAuth}/>
+        <MyProfile {...this.props}/>
       </div>
     )
   }
@@ -22,4 +25,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, {getHeaderThunkCreater})(MyProfileConteiner);
+export default connect(mapStateToProps, {getHeaderThunkCreater, userAvatar})(MyProfileConteiner);

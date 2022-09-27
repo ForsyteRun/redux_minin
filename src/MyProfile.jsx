@@ -2,16 +2,16 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import photo from './img/smile.jpg';
 import style from './MyProfile.module.css';
+import { Formik, Field, Form } from 'formik';
 
-const MyProfile = (props) => {
+const MyProfile = ({userAvatar, isAuth}) => {
 
-   if (!props.isAuth) {
-      return <Navigate to='/auth' />
-   };
+   // if (!props.isAuth) {
+   //    return <Navigate to='/auth' />
+   // };
 
-   const onChangeAva = (e) => {
-     let logo = e.target.files[0];
-     console.log(logo);
+   const onChangeAva = ({imageUrl}) => {
+      userAvatar(imageUrl)
    };
 
    return (
@@ -19,11 +19,22 @@ const MyProfile = (props) => {
          <div>
             <img src={photo} style={{ width: '100px' }} />
          </div>
-         <label className={style.button}>
-            <input type={"file"} onChange={onChangeAva}/>
-         </label>   
+         <Formik
+            initialValues={{imageUrl: ''}}
+            onSubmit = {onChangeAva}
+         >
+            {
+               () => (
+                  <Form>
+                     <Field type="text" name="imageUrl" placeholder="Enter Url">
+                     </Field>
+                     <button type="submit">Submit</button>
+                  </Form>
+               ) 
+            }
+         </Formik>
       </div>
    )
-};
+}
 
 export default MyProfile;
