@@ -59,6 +59,9 @@ export const profileAPI = {
    loadAvatar(url){
       return axios.put('https://630f1ba6498924524a860c3f.mockapi.io/myProfile/1', 
       {'image': {'big': url, 'small':''}})
+   }, 
+   getAvatar(){
+      return instance.get('myProfile/1')
    }
 };
 

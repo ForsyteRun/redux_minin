@@ -1,37 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import photo from './img/smile.jpg';
+import editLogo from './img/edit.png';
 import style from './MyProfile.module.css';
 import { Formik, Field, Form } from 'formik';
+import Preloader from "./Preloader";
+import MyProfileAvaForm from "./MyProfileAvaForm";
 
-const MyProfile = ({userAvatar, isAuth, imageProfile}) => {
-   // if (!props.isAuth) {
-   //    return <Navigate to='/auth' />
-   // };
+const MyProfile = ({ userAvatar, imageProfile, isLoading, profileData}) => {
+   console.log(profileData);
+  const [editLogoForm, setEditLogoForm] = useState(false);
+  const [editForm, setEditForm] = useState(false);
 
-   const onChangeAva = ({imageUrl}) => {
-      userAvatar(imageUrl)
-   };
+   useEffect(() => {
+      setEditLogoForm(false)
+   }, [imageProfile])
 
+   if (isLoading) {
+      return <Preloader />
+   }
    return (
       <div className={style.conteiner}>
-         <div>
-            <img src={imageProfile} style={{ width: '100px' }} />
+         <div className={style.logoConteiner}>
+            <img src={imageProfile
+               ? imageProfile
+               : photo}  style={{width: '200px'}}/>
+            <span className={style.editLogo} onClick={() => setEditLogoForm(!editLogoForm)} onBlur={console.log(111)}>
+               <img src={editLogo} />
+            </span>
+            <MyProfileAvaForm editLogoForm ={editLogoForm} userAvatar={userAvatar}/>
          </div>
-         <Formik
-            initialValues={{imageUrl: ''}}
-            onSubmit = {onChangeAva}
-         >
-            {
-               () => (
-                  <Form>
-                     <Field type="text" name="imageUrl" placeholder="Enter Url">
-                     </Field>
-                     <button type="submit">Submit</button>
-                  </Form>
-               ) 
+         <div>{
+               Object.keys(profileData).map(el => {
+                  editForm && <div className={style.title}>{el}:</div> 
+                  })
             }
-         </Formik>
+            <button>jjj</button>
+         </div>
       </div>
    )
 }

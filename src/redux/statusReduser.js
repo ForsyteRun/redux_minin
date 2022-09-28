@@ -157,12 +157,12 @@ const updateStatus = (reStatus) => {
 }
 
 //thunk-creaters
-export const getUsersThunkCreater = (pageSize, currentPage) => async (dispath) => {
-   dispath(toggleLoading(true))
+export const getUsersThunkCreater = (pageSize, currentPage) => async (dispatch) => {
+   dispatch(toggleLoading(true))
    let res = await getUsersApi(pageSize, currentPage)
-   dispath(setUsers(res.data));
-   dispath(totalPages((res.headers['x-total-count'])));
-   dispath(toggleLoading(false))
+   dispatch(setUsers(res.data));
+   dispatch(totalPages((res.headers['x-total-count'])));
+   dispatch(toggleLoading(false))
 };
 
 export const getPageChangeThunkCreater = (pageSize, page) => async (dispatch) => {
@@ -174,12 +174,10 @@ export const getPageChangeThunkCreater = (pageSize, page) => async (dispatch) =>
    dispatch(toggleLoading(false))
 };
 
-
 export const getNewsThunkCreater = () => async (dispatch) => {
    let res = await profileAPI.getStatus()
    dispatch(getStatus(res.data))
 }
-
 
 export const setNewsThunkCreater = (status) => async () => {
    await profileAPI.setStatus(status)
