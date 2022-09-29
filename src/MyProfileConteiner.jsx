@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { Component } from "react";
+import { Component, PureComponent } from "react";
 import MyProfile from "./MyProfile";
 import { getHeaderThunkCreater } from './redux/authReduser';
-import { userAvatar, firstLoadLogoProfile, getProfileData } from './redux/profileReduser';
+import { userAvatar, firstLoadLogoProfile, getProfileData, upLoadProfileData } from './redux/profileReduser';
 
-class MyProfileConteiner extends Component {
+class MyProfileConteiner extends PureComponent {
 //   if (!isAuth) {
 //     return <Navigate to='/auth' />
 //  } else  {
@@ -30,8 +30,10 @@ const mapStateToProps = (state) => {
     isAuth: state.auth.isAuth,
     imageProfile: state.profile.imageProfile,
     isLoading: state.usersPage.isLoading,
-    profileData: state.profile,
+    profileData: state.profile.profileInfo,
   }
 };
 
-export default connect(mapStateToProps, {getHeaderThunkCreater, firstLoadLogoProfile, userAvatar, getProfileData})(MyProfileConteiner);
+export default connect(mapStateToProps, 
+  {getHeaderThunkCreater, firstLoadLogoProfile, userAvatar, getProfileData, upLoadProfileData})
+  (MyProfileConteiner);

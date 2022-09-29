@@ -1,27 +1,35 @@
-import React, { useState, useEffect } from "react";
+ import React, { useState, useEffect } from "react";
 import style from './ProfileForm.module.css';
 import { Formik, Field, Form } from 'formik';
 import Preloader from "./Preloader";
+import ProfileFormInput from "./ProfileFormInput";
 
-const ProfileForm = ({ profileData }) => {
-
-   const [editMode, setEditMode] = useState(true)
+const ProfileForm = ({ profileData, upLoadProfileData }) => {
+   
+   const [editMode, setEditMode] = useState(false)
+   // useEffect(() =>{
+   //    upLoadProfileData(profileData)
+   // });
 
    const onSubmit = (values) => {
-      console.log(values);
-   }
+      upLoadProfileData(values)
+   };
 
    return (
       <div>
          <Formik
+            enableReinitialize={true}
             initialValues={profileData}
             onSubmit={onSubmit}>
             {
-               () => (
+               (props) => (
                   <Form className={style.conteiner}>  
                      {Object.keys(profileData).map(el => {
+                        // <ProfileFormInput el={el}/>
                         return <div>{el}:
-                                  {el ? <Field name={el}  className={style.inputForm}/> : null} 
+                                  {editMode 
+                                  ? <Field name={el}  className={style.inputForm}/> 
+                                  : <span className={style.text}>{props.values[el]}</span>} 
                                </div>
                      })}
                   

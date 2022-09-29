@@ -8,15 +8,11 @@ let get_Data_Profile = 'minin/profileReduser/getDataProfile';
 let initialState = {
    userData: 6,
    imageProfile: '',
-   lookinForJob: false,
-   lookinForJobDiiscription: null,
-   fullName: 'Ivan',
-   contacts: {
-       vk: '',
-       gitHub: '',
-       facebook: '',
-       instagram: ''
-      },
+   profileInfo: {
+      lookinForJob: false,
+      lookinForJobDiiscription: null,
+      fullName: 'Ivan',
+   }
 }
 
 let profileReduser = (state = initialState, action) => {
@@ -32,7 +28,8 @@ let profileReduser = (state = initialState, action) => {
          }
       case get_Data_Profile:
          return {
-            ...state, ...action.data
+            ...state, 
+            profileInfo: {...state.profileInfo, ...action.data}
          }
       default:
          return state;
@@ -61,7 +58,7 @@ const getDataProfile = (data) => {
       type: get_Data_Profile,
       data,
    }
-}
+};
 
 export const getUserProfileThunkCreator = (match) => async (dispatch) => {
    let res = await getUserProfile(match)
@@ -73,7 +70,7 @@ export const userAvatar = (url) => async (dispatch) => {
    let res = await profileAPI.loadAvatar(url);
    try {
       dispatch(toggleLoading(false))
-      dispatch(setImgProfile(res.data.image.big))
+      dispatch(setImgProfile(res.data.image))
    } catch (error) {
       console.log('error userAvatar');
    }
@@ -84,7 +81,7 @@ export const firstLoadLogoProfile = () => async (dispatch) => {
    let res = await profileAPI.getAvatar()
    try {
       dispatch(toggleLoading(false))
-      dispatch(setImgProfile(res.data.image.big))
+      dispatch(setImgProfile(res.data.image))
    } catch (error) {
       console.log('error userAvatar');
    }
@@ -93,8 +90,17 @@ export const firstLoadLogoProfile = () => async (dispatch) => {
 export const getProfileData = () => async (dispatch) => {
    let res = await profileAPI.getAvatar()
    try {
-      getDataProfile(res.data)
+      dispatch(getDataProfile(res.data))
    } catch (error) {
       console.log('getProfileData error');
+   }
+};
+
+export const upLoadProfileData = (data) => async (dispatch) => {
+   let res = await profileAPI.uploadProfileInfo(data)
+   try {
+      dispatch(getDataProfile(res.data))
+   } catch (error) {
+      console.log('getProfileInfoData error');
    }
 };
