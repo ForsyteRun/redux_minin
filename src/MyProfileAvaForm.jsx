@@ -20,7 +20,6 @@ const MyProfileAvaForm = (props) => {
                         <Form>
                            <Field type="text" name="imageUrl" placeholder="Enter Url" style={{width: '100px'}}>
                            </Field>
-                           <button type="submit">Submit</button>
                         </Form>
                      )
                   }

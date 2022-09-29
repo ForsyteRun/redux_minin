@@ -6,8 +6,9 @@ import style from './MyProfile.module.css';
 import { Formik, Field, Form } from 'formik';
 import Preloader from "./Preloader";
 import MyProfileAvaForm from "./MyProfileAvaForm";
+import ProfileForm from "./ProfileForm";
 
-const MyProfile = ({ userAvatar, imageProfile, isLoading, profileData}) => {
+const MyProfile = ({ userAvatar, imageProfile, isLoading, profileData},  props) => {
    console.log(profileData);
   const [editLogoForm, setEditLogoForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
@@ -30,11 +31,8 @@ const MyProfile = ({ userAvatar, imageProfile, isLoading, profileData}) => {
             </span>
             <MyProfileAvaForm editLogoForm ={editLogoForm} userAvatar={userAvatar}/>
          </div>
-         <div>{
-               Object.keys(profileData).map(el => {
-                  editForm && <div className={style.title}>{el}:</div> 
-                  })
-            }
+         <div className={style.rightBlock}>
+               <ProfileForm profileData={profileData}/>
             <button>jjj</button>
          </div>
       </div>

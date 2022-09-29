@@ -9,8 +9,8 @@ let initialState = {
    userData: 6,
    imageProfile: '',
    lookinForJob: false,
-   lookinForJobDiiscription: '',
-   fullName: '',
+   lookinForJobDiiscription: null,
+   fullName: 'Ivan',
    contacts: {
        vk: '',
        gitHub: '',
@@ -91,7 +91,6 @@ export const firstLoadLogoProfile = () => async (dispatch) => {
 };
 
 export const getProfileData = () => async (dispatch) => {
-   debugger;
    let res = await profileAPI.getAvatar()
    try {
       getDataProfile(res.data)
@@ -99,8 +98,3 @@ export const getProfileData = () => async (dispatch) => {
       console.log('getProfileData error');
    }
 };
-
-
-
-
-// getAvatar
