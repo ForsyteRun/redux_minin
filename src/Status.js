@@ -8,7 +8,7 @@ let Status = (props) => {
   return (
     <div>
       <NewsConteiner data={props.data} />
-      {props.dataUsers.map(el => <User {...props} el = {el}/>)}
+      {props.dataUsers.map(el => <User {...props} el = {el} key={el}/>)}
       <Pagination {...props} />
     </div>
 )}

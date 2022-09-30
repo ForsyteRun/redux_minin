@@ -70,14 +70,21 @@ export const profileAPI = {
 };
 
 export const AuthAPI = {
-   enterAuth(email, password, rememberMe){
+   enterAuth(email, password, rememberMe, captcha){
       return samuraiInstance.post('auth/login', {
          email, 
          password,
-         rememberMe},
+         rememberMe,
+         captcha},
          {withCredentials: true})
    },
    outAuth(){
       return instance.delete('auth/1')
    },
-}
+};
+
+export const securityApi = {
+  getCaptcha(){
+      return axios.get('https://social-network.samuraijs.com/api/1.0/security/get-captcha-url')
+   }
+};
