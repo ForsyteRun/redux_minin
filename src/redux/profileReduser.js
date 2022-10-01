@@ -61,14 +61,18 @@ const getDataProfile = (data) => {
 };
 
 export const getUserProfileThunkCreator = (match) => async (dispatch) => {
-   let res = await getUserProfile(match)
-   dispatch(setProfileAC(res))
+   try {
+      let res = await getUserProfile(match)
+      dispatch(setProfileAC(res))  
+   } catch (error) {
+      console.log('getUserProfile error');
+   }
 };
 
 export const userAvatar = (url) => async (dispatch) => {
-   dispatch(toggleLoading(true))
-   let res = await profileAPI.loadAvatar(url);
    try {
+      dispatch(toggleLoading(true))
+      let res = await profileAPI.loadAvatar(url);
       dispatch(toggleLoading(false))
       dispatch(setImgProfile(res.data.image))
    } catch (error) {
@@ -77,9 +81,9 @@ export const userAvatar = (url) => async (dispatch) => {
 };
 
 export const firstLoadLogoProfile = () => async (dispatch) => {
-   dispatch(toggleLoading(true))
-   let res = await profileAPI.getAvatar()
    try {
+      dispatch(toggleLoading(true))
+      let res = await profileAPI.getAvatar()
       dispatch(toggleLoading(false))
       dispatch(setImgProfile(res.data.image))
    } catch (error) {
@@ -88,8 +92,8 @@ export const firstLoadLogoProfile = () => async (dispatch) => {
 };
 
 export const getProfileData = () => async (dispatch) => {
-   let res = await profileAPI.getAvatar()
    try {
+      let res = await profileAPI.getAvatar()
       dispatch(getDataProfile(res.data))
    } catch (error) {
       console.log('getProfileData error');
@@ -97,8 +101,8 @@ export const getProfileData = () => async (dispatch) => {
 };
 
 export const upLoadProfileData = (data) => async (dispatch) => {
-   let res = await profileAPI.uploadProfileInfo(data)
    try {
+      let res = await profileAPI.uploadProfileInfo(data)
       dispatch(getDataProfile(res.data))
    } catch (error) {
       console.log('getProfileInfoData error');

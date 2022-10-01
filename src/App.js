@@ -10,6 +10,7 @@ import Preferenses from './Preferenses';
 import { getInitialThunkCreater } from './redux/initialReducer';
 import Preloader from './Preloader';
 import MyProfileConteiner from './MyProfileConteiner';
+import NoPage from './NoPage';
 
 const MusicConteiner = lazy(() => import('./MusicConteiner.jsx'));
 const AuthConteiner = lazy(() => import('./AuthConteiner'));
@@ -29,10 +30,14 @@ const App = ({ getInitialThunkCreater, isInitial }) => {
 
   useEffect(() => {
     getInitialThunkCreater();
+    window.addEventListener('unhandledrejection', (event) => console.log(event))
+    setTimeout(() => {
+      window.removeEventListener ('unhandledrejection', (event) => console.log(event))
+    }, 5000)
   })
 
   if (!isInitial) {
-    return 777788889999;
+    return <Preloader/>;
   }
 
   return (
@@ -47,13 +52,15 @@ const App = ({ getInitialThunkCreater, isInitial }) => {
         <NavLink to='/music' style={{ margin: '20px' }}>Login</NavLink>
         <NavLink to='/myprofile'>My Profile</NavLink>
         <Routes>
-          <Route path='/status' element={<StatusAPI />} />
+          <Route exact path='/' element={<StatusAPI />} />
+          <Route exact path='/status' element={<StatusAPI />} />
           <Route path='/profile/:id' element={<ProfileConteiner />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/preferenses' element={<Preferenses />} />
         </Routes>
         <Suspense fallback={<div><Preloader/></div>}>
           <Routes>
+            <Route path='*' element={<NoPage/>} />
             <Route path="/music" element={<MusicConteiner />} />
             <Route path='/auth' element={<AuthConteiner />} />
             <Route path='/register' element={<RegisterConteiner />} />

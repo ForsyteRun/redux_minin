@@ -5,6 +5,7 @@ import style from './MyProfile.module.css';
 import Preloader from "./Preloader";
 import MyProfileAvaForm from "./MyProfileAvaForm";
 import ProfileForm from "./ProfileForm";
+import cn from 'classnames';
 
 const MyProfile = ({ userAvatar, imageProfile, isLoading, profileData, upLoadProfileData}) => {
 
@@ -18,17 +19,17 @@ const MyProfile = ({ userAvatar, imageProfile, isLoading, profileData, upLoadPro
       return <Preloader />
    }
    return (
-      <div className={style.conteiner}>
-         <div className={style.logoConteiner}>
+      <div className={cn(style.conteiner)}>
+         <div className={cn(style.logoConteiner)}>
             <img src={imageProfile
                ? imageProfile
                : photo}  style={{width: '200px'}}/>
-            <span className={style.editLogo} onClick={() => setEditLogoForm(!editLogoForm)} onBlur={console.log(111)}>
+            <span className={cn(style.editLogo)} onClick={() => setEditLogoForm(!editLogoForm)} onBlur={console.log(111)}>
                <img src={editLogo} />
             </span>
             <MyProfileAvaForm editLogoForm ={editLogoForm} userAvatar={userAvatar}/>
          </div>
-         <div className={style.rightBlock}>
+         <div className={cn(style.rightBlock)}>
             <ProfileForm profileData={profileData} upLoadProfileData={upLoadProfileData}/>
          </div>
       </div>
